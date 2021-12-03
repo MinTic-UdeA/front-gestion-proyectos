@@ -1,11 +1,15 @@
-import React from 'react';
+
+import React, { useEffect } from 'react';
+
+
 
 const Index = () => {
+
   return (
-    <div>
-      <div className='bg-gray-100 h-96'>Index page</div>
-    </div>
+    <div>index inicio</div>
+    
   );
 };
 
 export default Index;
+

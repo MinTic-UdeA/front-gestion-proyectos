@@ -1,12 +1,71 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useQuery } from '@apollo/client'
+import { GET_PROYECTOS } from 'graphql/proyectos/queries'
+import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
+import { Enum_EstadoProyecto, Enum_FaseProyecto  } from 'utils/enums';
+import ButtonLoading from 'components/ButtonLoading';
+// import PrivateRoute from 'components/PrivateRoute';
 
 const IndexProyectos = () => {
+
+    const { data, error, loading } = useQuery(GET_PROYECTOS);
+
+    useEffect(() => {
+        console.log("data log", data)
+    }, [data])
+
+    useEffect(() => {
+        if (error) {
+            toast.error("Error consultando los proyectos")
+        }
+    }, [error])
+
     return (
         <div>
-            todos los proyectos
+            <h1 className="px-16 py-7 text-3xl text-gray-800">Listado de Proyectos</h1>
+            <table className='tabla'>
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Obj. General</th>
+                        <th>Obj. Especificos</th>
+                        <th>Presupuesto</th>
+                        <th>Fecha Inicio</th>
+                        <th>Fecha Fin</th>
+                        <th>Estado</th>
+                        <th>Fase</th>
+                        <th>Editar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {data && data.Proyectos.map((p) => {
+                        return (
+                            <tr key={p._id}>
+                                <td>{p.nombre}</td>
+                                <td>{p.objGeneral}</td>
+                                <td>{p.objEspecificos}</td>
+                                <td>{p.presupuesto}</td>
+                                <td>{p.fechaInicio}</td>
+                                <td>{p.fechaFin}</td>
+                                <td>{Enum_EstadoProyecto[p.estado]}</td>
+                                <td>{Enum_FaseProyecto[p.fase]}</td>
+                                <td className="text-center">
+                                    <Link to={`/proyectos/editar/${p._id}`}>
+                                        <i className='fas fa-pen text-gray-400 hover:text-gray-600 cursor-pointer' />
+                                    </Link>
+                                </td>
+                            </tr>
+                        );
+                    }
+
+                    )}
+                </tbody>
+            </table>
         </div>
     )
 }
 
 export default IndexProyectos
-// recordar agregar al sidebar y al app.jsx
+
+
