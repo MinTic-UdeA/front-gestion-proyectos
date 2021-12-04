@@ -15,7 +15,6 @@ const EditarUsuario = () => {
   const { form, formData, updateFormData } = useFormData(null);
   const { _id } = useParams()
   const { data: queryData, error: queryError, loading: queryLoading } = useQuery(GET_USUARIO, { variables: { _id } });
-
   const [editarUsuario, { data: mutationData, error: mutationError, loading: mutationLoading }] = useMutation(EDITAR_USUARIO)
 
   const submitForm = (e) => {

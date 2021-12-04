@@ -13,6 +13,8 @@ import IndexProyectos from 'pages/proyectos';
 import IndexAvances from 'pages/avances';
 import IndexInscripciones from 'pages/inscripciones';
 import EditarUsuario from 'pages/usuarios/editar';
+import AuthLayout from 'layouts/AuthLayout';
+import Register from 'pages/auth/register';
 
 // import PrivateRoute from 'components/PrivateRoute';
 
@@ -48,6 +50,9 @@ function App() {
               <Route path='/proyectos' element={<IndexProyectos/>} />
               <Route path='/avances' element={<IndexAvances/>} />
               <Route path='/inscripciones' element={<IndexInscripciones/>} />
+            </Route>
+            <Route path='auth' element={<AuthLayout />}>
+               <Route path='/auth/register' element={<Register/>} />
             </Route>
           </Routes>
         </BrowserRouter>
