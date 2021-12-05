@@ -1,0 +1,1 @@
+// Templates de gql en Apollo

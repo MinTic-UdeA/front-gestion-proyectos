@@ -33,12 +33,12 @@ function App() {
 
     < ApolloProvider client={client}>
 
-    <Auth0Provider
+    {/* <Auth0Provider
       domain='misiontic-concesionario.us.auth0.com'
       clientId='WsdhjjQzDLIZEHA6ouuxXGxFONFGAQ4g'
       redirectUri='http://localhost:3000/admin'
       audience='api-autenticacion-concesionario-mintic'
-    >
+    > */}
       <UserContext.Provider value={{ userData, setUserData }}>
         <BrowserRouter>
           <Routes>
@@ -51,13 +51,13 @@ function App() {
               <Route path='/avances' element={<IndexAvances/>} />
               <Route path='/inscripciones' element={<IndexInscripciones/>} />
             </Route>
-            <Route path='auth' element={<AuthLayout />}>
-               <Route path='/auth/register' element={<Register/>} />
+            <Route path='/auth' element={<AuthLayout />}>
+               <Route path='register' element={<Register/>} />
             </Route>
           </Routes>
         </BrowserRouter>
       </UserContext.Provider>
-    </Auth0Provider>
+    {/* </Auth0Provider> */}
     </ApolloProvider>
   );
 }

@@ -5,7 +5,7 @@ import DropDown from 'components/Dropdown';
 import ButtonLoading from 'components/ButtonLoading';
 import { Link } from 'react-router-dom';
 import useFormData from 'hooks/useFormData';
-import { REGISTRO } from 'graphql/auth/mutations';
+import { REGISTRAR } from 'graphql/auth/mutations';
 import { toast } from 'react-toastify'
 import { useMutation } from '@apollo/client';
 import { useNavigate } from 'react-router';
@@ -16,22 +16,23 @@ const Register = () => {
 
     const { form, formData, updateFormData } = useFormData();
 
-    const [registro, { data: mutationData, loading: mutationLoading, error: mutationError }] =
-        useMutation(REGISTRO);
+    const [registrar, { data: mutationData, loading: mutationLoading, error: mutationError }] =
+        useMutation(REGISTRAR);
 
     const submitForm = (e) => {
         e.preventDefault();
-        registro({ variables: formData });
+        console.log("enviar datos al backend", formData)
+        registrar({ variables: formData });
     };
 
-    useEffect(() => {
-        if (mutationData) {
-            if (mutationData.registro.token) {
-                localStorage.setItem("token", mutationData.registro.token);
-                navigate('/')
-            }
-        }
-    }, [mutationData, navigate]);
+    // useEffect(() => {
+    //     if (mutationData) {
+    //         if (mutationData.registrar.token) {
+    //             localStorage.setItem("token", mutationData.registrar.token);
+    //             navigate('/')
+    //         }
+    //     }
+    // }, [mutationData, navigate]);
 
     useEffect(() => {
         if (mutationError) {
@@ -54,12 +55,12 @@ const Register = () => {
                     <Input label='Contraseña:' name='password' type='password' required />
                 </div>
                 <ButtonLoading
-                    disabled={false}
-                    loading={false}
+                    disabled={Object.keys(formData).length===0}
+                    loading={mutationLoading}
                     text='Registrarme'
                 />
             </form>
-            <span>¿Ya tienes una cuenta?</span>
+            <span>¿Ya tienes una cuentaAA?</span>
             <Link to='/'>
                 <span className='text-blue-700'>Inicia sesión</span>
             </Link>

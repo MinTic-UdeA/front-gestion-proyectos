@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
-import { useQuery } from '@apollo/client'
 import { GET_PROYECTOS } from 'graphql/proyectos/queries'
+
+import { useQuery } from '@apollo/client'
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import { Enum_EstadoProyecto, Enum_FaseProyecto  } from 'utils/enums';

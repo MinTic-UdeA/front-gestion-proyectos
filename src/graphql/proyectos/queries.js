@@ -1,3 +1,4 @@
+// Templates de gql en Apollo
 import { gql } from "@apollo/client";
 
 const GET_PROYECTOS = gql`

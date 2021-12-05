@@ -1,17 +1,17 @@
+// vista y edición de 1 usuario
 import React, { useEffect } from 'react'
-import { useParams, Link } from 'react-router-dom'
-import { useQuery, useMutation } from '@apollo/client'
 import { GET_USUARIO } from 'graphql/usuarios/queries'
 import { EDITAR_USUARIO } from 'graphql/usuarios/mutations'
+import { useQuery, useMutation } from '@apollo/client'
+import { useParams, Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { Enum_Rol, Enum_EstadoUsuario } from 'utils/enums'
+// import { Enum_Rol, Enum_EstadoUsuario } from 'utils/enums'
 import Input from 'components/Input'
 import ButtonLoading from 'components/ButtonLoading'
 import useFormData from 'hooks/useFormData'
 
 const EditarUsuario = () => {
 
-  // hook para utilizar en los otros formularios. 
   const { form, formData, updateFormData } = useFormData(null);
   const { _id } = useParams()
   const { data: queryData, error: queryError, loading: queryLoading } = useQuery(GET_USUARIO, { variables: { _id } });

@@ -1,10 +1,10 @@
+// index en el que se listan todos los usuarios.
 import React, { useEffect } from 'react'
-import { useQuery } from '@apollo/client'
 import { GET_USUARIOS } from 'graphql/usuarios/queries'
-import { toast } from 'react-toastify';
+import { useQuery } from '@apollo/client'
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { Enum_Rol, Enum_EstadoUsuario } from 'utils/enums';
-// import PrivateRoute from 'components/PrivateRoute';
 
 const IndexUsuarios = () => {
 
@@ -64,4 +64,5 @@ const IndexUsuarios = () => {
 }
 
 export default IndexUsuarios
+
 // recordar agregar al sidebar y al app.jsx
