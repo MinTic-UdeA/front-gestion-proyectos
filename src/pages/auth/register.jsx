@@ -9,8 +9,11 @@ import { REGISTRAR } from 'graphql/auth/mutations';
 import { toast } from 'react-toastify'
 import { useMutation } from '@apollo/client';
 import { useNavigate } from 'react-router';
+import { useAuth } from 'context/authContext';
 
 const Register = () => {
+
+    const { setToken } = useAuth()
 
     const navigate = useNavigate();
 
@@ -25,14 +28,14 @@ const Register = () => {
         registrar({ variables: formData });
     };
 
-    // useEffect(() => {
-    //     if (mutationData) {
-    //         if (mutationData.registrar.token) {
-    //             localStorage.setItem("token", mutationData.registrar.token);
-    //             navigate('/')
-    //         }
-    //     }
-    // }, [mutationData, navigate]);
+    useEffect(() => {
+        if (mutationData) {
+            if (mutationData.registrar.token) {
+                setToken(mutationData.registrar.token);
+                navigate('/')
+            }
+        }
+    }, [mutationData, navigate, setToken]);
 
     useEffect(() => {
         if (mutationError) {
@@ -52,6 +55,7 @@ const Register = () => {
                     <Input label='Apellido:' name='apellido' type='text' required />
                     <DropDown label='Registre su rol:' name='rol' required={true} options={Enum_Rol} />
                     <Input label='Correo:' name='correo' type='email' required />
+                    <Input label='Identificación:' name='identificacion' type='text' required />
                     <Input label='Contraseña:' name='password' type='password' required />
                 </div>
                 <ButtonLoading

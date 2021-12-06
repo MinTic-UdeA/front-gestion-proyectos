@@ -15,6 +15,9 @@ import IndexInscripciones from 'pages/inscripciones';
 import EditarUsuario from 'pages/usuarios/editar';
 import AuthLayout from 'layouts/AuthLayout';
 import Register from 'pages/auth/register';
+import Login from 'pages/auth/login';
+import { AuthContext } from 'context/authContext';
+
 
 // import PrivateRoute from 'components/PrivateRoute';
 
@@ -29,35 +32,43 @@ const client = new ApolloClient({
 function App() {
   const [userData, setUserData] = useState({});
 
+  // estado que me va a recibir el token
+  const [authToken, setAuthToken] = useState("")
+  
+  // setea el estado y guarda el token en el local Storage
+  const setToken = (token) => {
+    setAuthToken(token)
+    if (token) {
+      localStorage.setItem("token", JSON.stringify(token))
+    }
+  }
+  
+
   return (
 
     < ApolloProvider client={client}>
-
-    {/* <Auth0Provider
-      domain='misiontic-concesionario.us.auth0.com'
-      clientId='WsdhjjQzDLIZEHA6ouuxXGxFONFGAQ4g'
-      redirectUri='http://localhost:3000/admin'
-      audience='api-autenticacion-concesionario-mintic'
-    > */}
-      <UserContext.Provider value={{ userData, setUserData }}>
-        <BrowserRouter>
-          <Routes>
-            <Route path='/' element={<PrivateLayout />}>
-              <Route path='' element={<Index/>} />
-              <Route path='/usuarios' element={<IndexUsuarios/>} />
-              <Route path='/usuarios/editar/:_id' element={<EditarUsuario/>} />
-              <Route path='/perfil' element={<IndexPerfil/>} />
-              <Route path='/proyectos' element={<IndexProyectos/>} />
-              <Route path='/avances' element={<IndexAvances/>} />
-              <Route path='/inscripciones' element={<IndexInscripciones/>} />
-            </Route>
-            <Route path='/auth' element={<AuthLayout />}>
-               <Route path='register' element={<Register/>} />
-            </Route>
-          </Routes>
-        </BrowserRouter>
-      </UserContext.Provider>
-    {/* </Auth0Provider> */}
+      <AuthContext.Provider value={{ setToken }} >
+        <UserContext.Provider value={{ userData, setUserData }}>
+          <BrowserRouter>
+            <Routes>
+              <Route path='/' element={<PrivateLayout />}>
+                <Route path='' element={<Index />} />
+                <Route path='/usuarios' element={<IndexUsuarios />} />
+                <Route path='/usuarios/editar/:_id' element={<EditarUsuario />} />
+                <Route path='/perfil' element={<IndexPerfil />} />
+                <Route path='/proyectos' element={<IndexProyectos />} />
+                <Route path='/avances' element={<IndexAvances />} />
+                <Route path='/inscripciones' element={<IndexInscripciones />} />
+              </Route>
+              <Route path='/auth' element={<AuthLayout />}>
+                <Route path='register' element={<Register />} />
+                <Route path='login' element={<Login />} />
+              </Route>
+            </Routes>
+          </BrowserRouter>
+        </UserContext.Provider>
+        {/* </Auth0Provider> */}
+      </AuthContext.Provider>
     </ApolloProvider>
   );
 }
