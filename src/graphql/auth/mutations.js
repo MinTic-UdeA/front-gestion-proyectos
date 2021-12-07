@@ -23,22 +23,22 @@ const REGISTRAR = gql`
       }
 }
 `
-// const LOGIN = gql`
-//   mutation Login($correo: String!, $password: String!) {
-//     login(correo: $correo, password: $password) {
-//       token
-//       error
-//     }
-//   }
-// `;
+const LOGIN = gql`
+  mutation Login($correo: String!, $password: String!) {
+    login(correo: $correo, password: $password) {
+      token
+      error
+    }
+  }
+`;
 
-// const REFRESH_TOKEN = gql`
-//   mutation RefreshToken {
-//     refreshToken {
-//       token
-//       error
-//     }
-//   }
-// `
+const REFRESH_TOKEN = gql`
+  mutation RefreshToken {
+    refreshToken {
+      token
+      error
+    }
+  }
+`
 
-export { REGISTRAR }
+export { REGISTRAR, LOGIN }
