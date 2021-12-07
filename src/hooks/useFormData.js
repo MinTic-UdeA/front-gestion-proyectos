@@ -24,5 +24,5 @@ const useFormData = (initial) => {
 
 export default useFormData;
 
-// formData: variable con todas las informaciones del formulario. Cada input tiene un nombre, y al grente del nombre el valor del input. 
+// formData: variable con todas las informaciones del formulario
 // updateFormData: cada que el formulario cambia utilizamos esa funcion para actualizar esa variable

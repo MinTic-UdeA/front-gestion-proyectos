@@ -14,13 +14,13 @@ import IndexInscripciones from 'pages/inscripciones';
 import EditarUsuario from 'pages/usuarios/editar';
 import AuthLayout from 'layouts/AuthLayout';
 import Register from 'pages/auth/register';
-import Login from 'pages/auth/login';
+// import Login from 'pages/auth/login';
 // import { AuthContext } from 'context/authContext';
 
 // import PrivateRoute from 'components/PrivateRoute';
 
 // poder agregar funcionalidades como los tokens que vamos a tener que mandar para el backend
-// const httpLink = createHttpLink("https://c4devops.herokuapp.com/graphql")
+// const httpLink = createHttpLink("")
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
@@ -31,15 +31,15 @@ function App() {
   const [userData, setUserData] = useState({});
 
   // estado que me va a recibir el token
-  const [authToken, setAuthToken] = useState("")
+  // const [authToken, setAuthToken] = useState("")
   
   // setea el estado y guarda el token en el local Storage
-  const setToken = (token) => {
-    setAuthToken(token)
-    if (token) {
-      localStorage.setItem("token", JSON.stringify(token))
-    }
-  }
+  // const setToken = (token) => {
+  //   setAuthToken(token)
+  //   if (token) {
+  //     localStorage.setItem("token", JSON.stringify(token))
+  //   }
+  // }
   
   return (
 
@@ -59,7 +59,7 @@ function App() {
               </Route>
               <Route path='/auth' element={<AuthLayout />}>
                 <Route path='register' element={<Register />} />
-                <Route path='login' element={<Login />} />
+                {/* <Route path='login' element={<Login />} /> */}
               </Route>
             </Routes>
           </BrowserRouter>
