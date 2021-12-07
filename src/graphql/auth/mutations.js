@@ -32,13 +32,13 @@ const LOGIN = gql`
   }
 `;
 
-const REFRESH_TOKEN = gql`
-  mutation RefreshToken {
-    refreshToken {
-      token
-      error
-    }
-  }
-`
+// const REFRESH_TOKEN = gql`
+//   mutation RefreshToken {
+//     refreshToken {
+//       token
+//       error
+//     }
+//   }
+// `
 
-export { REGISTRAR, LOGIN, REFRESH_TOKEN }
+export { REGISTRAR, LOGIN }

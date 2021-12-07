@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import PrivateLayout from 'layouts/PrivateLayout';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Auth0Provider } from '@auth0/auth0-react';
 import { UserContext } from 'context/userContext';
-import { ApolloProvider, ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
+import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
 import Index from 'pages/Index';
 import "styles/globals.css";
 import "styles/tabla.css"
@@ -16,8 +15,7 @@ import EditarUsuario from 'pages/usuarios/editar';
 import AuthLayout from 'layouts/AuthLayout';
 import Register from 'pages/auth/register';
 import Login from 'pages/auth/login';
-import { AuthContext } from 'context/authContext';
-
+// import { AuthContext } from 'context/authContext';
 
 // import PrivateRoute from 'components/PrivateRoute';
 
@@ -26,7 +24,7 @@ import { AuthContext } from 'context/authContext';
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
-  uri: "https://c4devops.herokuapp.com/graphql"
+  uri: "http://localhost:4000/graphql"
 })
 
 function App() {
@@ -43,11 +41,10 @@ function App() {
     }
   }
   
-
   return (
 
     < ApolloProvider client={client}>
-      <AuthContext.Provider value={{ setToken }} >
+      {/* <AuthContext.Provider value={{ setToken, authToken, setAuthToken }} > */}
         <UserContext.Provider value={{ userData, setUserData }}>
           <BrowserRouter>
             <Routes>
@@ -67,8 +64,7 @@ function App() {
             </Routes>
           </BrowserRouter>
         </UserContext.Provider>
-        {/* </Auth0Provider> */}
-      </AuthContext.Provider>
+      {/* </AuthContext.Provider> */}
     </ApolloProvider>
   );
 }

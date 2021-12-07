@@ -64,7 +64,7 @@ const Register = () => {
                     text='Registrarme'
                 />
             </form>
-            <span>¿Ya tienes una cuentaAA?</span>
+            <span>¿Ya tienes una cuenta?</span>
             <Link to='/'>
                 <span className='text-blue-700'>Inicia sesión</span>
             </Link>
