@@ -12,13 +12,10 @@ import { useNavigate } from 'react-router';
 import { useAuth } from 'context/authContext';
 
 const Register = () => {
-
-    const { setToken } = useAuth()
-
+    
+    // const { setToken } = useAuth()
     const navigate = useNavigate();
-
     const { form, formData, updateFormData } = useFormData();
-
     const [registrar, { data: mutationData, loading: mutationLoading, error: mutationError }] =
         useMutation(REGISTRAR);
 
@@ -28,6 +25,7 @@ const Register = () => {
         registrar({ variables: formData });
     };
 
+    // recibe el token en el mutationData y se guarda en el localStorage
     useEffect(() => {
         if (mutationData) {
             if (mutationData.registrar.token) {
@@ -39,19 +37,18 @@ const Register = () => {
 
     useEffect(() => {
         if (mutationError) {
-          toast.error('No se pudo modificar el usuario');
+          toast.error('No se pudo registrar el usuario');
         }
-    
       }, [mutationError]);
     
       if (mutationLoading) return <div className="m-4">Cargando....</div>;
 
     return (
         <div className='flex flex-col h-full w-full items-center justify-center'>
-            <h1 className='text-3xl font-bold my-4'>Regístrate</h1>
+            <h1 className='text-3xl my-4 font-semibold'>Regístrate</h1>
             <form className='flex flex-col' onSubmit={submitForm} onChange={updateFormData} ref={form}>
                 <div className='grid grid-cols-2 gap-5'>
-                    <Input label='Nombre:' name='nombre' type='text' required />
+                    <Input label='Nombre:' name='nombre' type='text' required/>
                     <Input label='Apellido:' name='apellido' type='text' required />
                     <DropDown label='Registre su rol:' name='rol' required={true} options={Enum_Rol} />
                     <Input label='Correo:' name='correo' type='email' required />
@@ -65,7 +62,7 @@ const Register = () => {
                 />
             </form>
             <span>¿Ya tienes una cuenta?</span>
-            <Link to='/'>
+            <Link to='/auth/login'>
                 <span className='text-blue-700'>Inicia sesión</span>
             </Link>
         </div>
