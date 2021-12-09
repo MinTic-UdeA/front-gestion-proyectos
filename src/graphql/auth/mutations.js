@@ -24,8 +24,13 @@ const REGISTRAR = gql`
 }
 `
 const LOGIN = gql`
-  mutation Login($correo: String!, $password: String!) {
-    login(correo: $correo, password: $password) {
+  mutation Login(
+      $correo: String!, 
+      $password: String!
+      ) {
+    login(
+        correo: $correo, 
+        password: $password) {
       token
       error
     }
@@ -33,12 +38,12 @@ const LOGIN = gql`
 `;
 
 const REFRESH_TOKEN = gql`
-  mutation RefreshToken {
-    refreshToken {
-      token
-      error
-    }
+mutation RefreshToken {
+  refreshToken {
+    token
+    error
   }
-`
+}
+`;
 
-export { REGISTRAR, LOGIN }
+export { REGISTRAR, LOGIN, REFRESH_TOKEN }

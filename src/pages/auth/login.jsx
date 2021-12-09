@@ -14,21 +14,14 @@ import { useAuth } from 'context/authContext';
 
 const Login = () => {
 
-    const navigate = useNavigate()
-
     const { setToken } = useAuth()
-
+    const navigate = useNavigate()
     const { form, formData, updateFormData } = useFormData();
-
     const [login, { data: mutationData, loading: mutationLoading, error: mutationError }] = useMutation(LOGIN)
 
     const submitForm = (e) => {
         e.preventDefault();
-        console.log("enviar datos al backend", formData)
-        login({
-            variables: formData
-        })
-
+        login({ variables: formData })
     };
 
     useEffect(() => {

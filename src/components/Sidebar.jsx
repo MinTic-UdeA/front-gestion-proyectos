@@ -1,5 +1,24 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { useAuth } from 'context/authContext';
+
+
+const Logout = () => {
+  const { setToken } = useAuth();
+  const deleteToken = () => {
+    setToken(null);
+  };
+  return (
+    <li onClick={() => deleteToken()}>
+      <NavLink to='/auth/login' className='sidebar-route text-red-700'>
+        <div className='flex items-center'>
+          <i className='fas fa-sign-out-alt' />
+          <span className='text-sm  ml-2'>Cerrar Sesión</span>
+        </div>
+      </NavLink>
+    </li>
+  );
+};
 
 const SidebarLinks = () => {
   return (
@@ -9,6 +28,7 @@ const SidebarLinks = () => {
       <SidebarRoute to='/proyectos' title='Proyectos' icon='far fa-lightbulb' />
       <SidebarRoute to='/inscripciones' title='Inscripciones' icon='fas fa-plus' />
       <SidebarRoute to='/avances' title='Avances' icon='fas fa-angle-double-right' />
+      <Logout />
     </ul>
   );
 };
