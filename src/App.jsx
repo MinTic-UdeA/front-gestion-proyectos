@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PrivateLayout from 'layouts/PrivateLayout';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { UserContext } from 'context/userContext';
@@ -17,8 +17,6 @@ import AuthLayout from 'layouts/AuthLayout';
 import Register from 'pages/auth/register';
 import Login from 'pages/auth/login';
 import { AuthContext } from 'context/authContext';
-
-// import PrivateRoute from 'components/PrivateRoute';
 
 // poder agregar funcionalidades como los tokens que vamos a tener que mandar para el backend
 const httpLink = createHttpLink({uri: "http://localhost:4000/graphql"})
