@@ -12,7 +12,6 @@ const IndexProyectos = () => {
     const { data, error, loading } = useQuery(GET_PROYECTOS);
 
     useEffect(() => {
-        console.log("data log", data)
     }, [data])
 
     useEffect(() => {

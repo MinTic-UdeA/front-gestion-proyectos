@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router';
 import { useAuth } from 'context/authContext';
 
 
+
 const Login = () => {
 
     const { setToken } = useAuth()
@@ -21,6 +22,7 @@ const Login = () => {
 
     const submitForm = (e) => {
         e.preventDefault();
+        console.log("soy un submit form");
         login({ variables: formData })
     };
 

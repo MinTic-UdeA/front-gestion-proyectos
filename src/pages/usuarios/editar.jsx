@@ -20,7 +20,6 @@ const EditarUsuario = () => {
   const submitForm = (e) => {
     e.preventDefault()
     editarUsuario({ variables: { _id, ...formData } })
-    console.log("enviar datos al backend", formData)
   }
 
   useEffect(() => {
@@ -32,11 +31,9 @@ const EditarUsuario = () => {
   useEffect(() => {
     if (mutationError) {
       toast.error('No se pudo modificar el usuario');
-      console.log("error:", mutationError)
     }
     if (queryError) {
       toast.error('No se pudo consultar el usuario');
-      console.log("error:", queryError)
     }
   }, [queryError, mutationError]);
 
@@ -50,6 +47,7 @@ const EditarUsuario = () => {
       <Link to='/usuarios'>
         <i className='fas fa-arrow-left text-gray-600 cursor-pointer font-bold text-xl hover:text-gray-900' />
       </Link>
+      
       <h1 className='m-2 text-3xl text-gray-800 font-bold text-center'>Editar Usuario</h1>
       <form
         onSubmit={submitForm}

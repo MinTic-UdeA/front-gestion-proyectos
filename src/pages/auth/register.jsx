@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router';
 import { useAuth } from 'context/authContext';
 
 const Register = () => {
-    
+
     const { setToken } = useAuth()
     const navigate = useNavigate();
     const { form, formData, updateFormData } = useFormData();
@@ -21,7 +21,6 @@ const Register = () => {
 
     const submitForm = (e) => {
         e.preventDefault();
-        console.log("enviar datos al backend", formData)
         registrar({ variables: formData });
     };
 
@@ -30,25 +29,23 @@ const Register = () => {
         if (mutationData) {
             if (mutationData.registrar.token) {
                 setToken(mutationData.registrar.token);
-                navigate('/')
             }
         }
-    }, [mutationData, navigate, setToken]);
+    }, [mutationData, setToken]);
 
     useEffect(() => {
         if (mutationError) {
-          toast.error('No se pudo registrar el usuario');
+            toast.error('No se pudo registrar el usuario');
         }
-      }, [mutationError]);
-    
-      if (mutationLoading) return <div className="m-4">Cargando....</div>;
+    }, [mutationError]);
+
 
     return (
         <div className='flex flex-col h-full w-full items-center justify-center'>
             <h1 className='text-3xl my-4 font-semibold'>Regístrate</h1>
             <form className='flex flex-col' onSubmit={submitForm} onChange={updateFormData} ref={form}>
                 <div className='grid grid-cols-2 gap-5'>
-                    <Input label='Nombre:' name='nombre' type='text' required/>
+                    <Input label='Nombre:' name='nombre' type='text' required />
                     <Input label='Apellido:' name='apellido' type='text' required />
                     <DropDown label='Registre su rol:' name='rol' required={true} options={Enum_Rol} />
                     <Input label='Correo:' name='correo' type='email' required />
@@ -56,7 +53,7 @@ const Register = () => {
                     <Input label='Contraseña:' name='password' type='password' required />
                 </div>
                 <ButtonLoading
-                    disabled={Object.keys(formData).length===0}
+                    disabled={Object.keys(formData).length === 0}
                     loading={mutationLoading}
                     text='Registrarme'
                 />

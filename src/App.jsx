@@ -17,6 +17,7 @@ import AuthLayout from 'layouts/AuthLayout';
 import Register from 'pages/auth/register';
 import Login from 'pages/auth/login';
 import { AuthContext } from 'context/authContext';
+import jwt_decode from 'jwt-decode'
 
 // poder agregar funcionalidades como los tokens que vamos a tener que mandar para el backend
 const httpLink = createHttpLink({uri: "http://localhost:4000/graphql"})
@@ -39,6 +40,7 @@ const client = new ApolloClient({
 })
 
 function App() {
+  
   const [userData, setUserData] = useState({});
 
   // estado que me va a recibir el token
@@ -53,6 +55,21 @@ function App() {
       localStorage.removeItem("token")
     }
   }
+
+  useEffect(() => {
+    if (authToken) {
+      const decoded = jwt_decode(authToken);
+      setUserData({
+        _id: decoded._id,
+        nombre: decoded.nombre,
+        apellido: decoded.apellido,
+        identificacion: decoded.identificacion,
+        correo: decoded.correo,
+        rol: decoded.rol,
+        estado: decoded.estado
+      })
+    }
+  }, [authToken])
   
   return (
 
