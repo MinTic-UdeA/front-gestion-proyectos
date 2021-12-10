@@ -1,7 +1,7 @@
 // index en el que se listan todos los usuarios.
 import React, { useEffect } from 'react'
 import { GET_USUARIOS } from 'graphql/usuarios/queries'
-import { APROBAR_USUARIO } from 'graphql/usuarios/mutations';
+import { CAMBIAR_ESTADO_USUARIO } from 'graphql/usuarios/mutations';
 import { useQuery, useMutation } from '@apollo/client'
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -52,10 +52,8 @@ const IndexUsuarios = () => {
                                     <td>{Enum_Rol[u.rol]}</td>
                                     <td>{Enum_EstadoUsuario[u.estado]}</td>
                                     <td className="text-center">
-                                        <Aprobacion usuario={u} refetch={refetch} />
-                                        {/*    <Link to={`/usuarios/editar/${u._id}`}>
-                                            <i className='fas fa-times-circle p-1 text-xl text-gray-400 hover:text-red-600 cursor-pointer' />
-                                        </Link> */}
+                                        <EstadoUsuario usuario={u} refetch={refetch} estado={"AUTORIZADO"} classname={"fas fa-check-circle p-1 text-xl text-gray-400 hover:text-green-600"}/>
+                                        <EstadoUsuario usuario={u} refetch={refetch} estado={"NO_AUTORIZADO"} classname={"fas fa-times-circle p-1 text-xl text-gray-400 hover:text-red-600"}/>
                                     </td>
                                 </tr>
                             );
@@ -68,25 +66,24 @@ const IndexUsuarios = () => {
     )
 }
 
-const Aprobacion = ({ usuario, refetch  }) => {
+const EstadoUsuario = ({ usuario, refetch, estado, classname }) => {
 
-    const [aprobarUsuario, { data: mutationData, error: mutationError, loading: mutationLoading }] = useMutation(APROBAR_USUARIO)
+    const [cambiarEstadoUsuario, { data: mutationData, error: mutationError, loading: mutationLoading }] = useMutation(CAMBIAR_ESTADO_USUARIO)
 
     useEffect(() => {
         if (mutationData) {
-          refetch();
+            refetch();
         }
-      }, [mutationData, refetch]);
+    }, [mutationData, refetch]);
 
-    const cambiarEstadoUsuario = () => {
-        aprobarUsuario({ variables: { _id: usuario._id } });
+    const cambiarEstado = () => {
+        cambiarEstadoUsuario({ variables: { _id: usuario._id, estado: estado } });
     };
+
     return (
-        <div>
-            <button onClick={() => {cambiarEstadoUsuario();}}>
-                <i className='fas fa-check-circle p-1 text-xl text-gray-400 hover:text-green-600 ' />
-            </button>
-        </div>
+        <button onClick={() => { cambiarEstado(); }}>
+            <i className={classname} />
+        </button>
     );
 };
 
