@@ -7,10 +7,10 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Enum_Rol, Enum_EstadoUsuario } from 'utils/enums';
 import PrivateRoute from 'components/PrivateRoute';
+import PrivateComponent from 'components/PrivateComponent';
 import { useUser } from 'context/userContext';
 
 const IndexUsuarios = () => {
-
     /*  const { userData } = useUser(); */
     const { data, error, loading, refetch } = useQuery(GET_USUARIOS);
 
@@ -52,8 +52,14 @@ const IndexUsuarios = () => {
                                     <td>{Enum_Rol[u.rol]}</td>
                                     <td>{Enum_EstadoUsuario[u.estado]}</td>
                                     <td className="text-center">
-                                        <EstadoUsuario usuario={u} refetch={refetch} estado={"AUTORIZADO"} classname={"fas fa-check-circle p-1 text-xl text-gray-400 hover:text-green-600"}/>
-                                        <EstadoUsuario usuario={u} refetch={refetch} estado={"NO_AUTORIZADO"} classname={"fas fa-times-circle p-1 text-xl text-gray-400 hover:text-red-600"}/>
+                                        <PrivateComponent roleList={["ADMINISTRADOR"]}>
+                                            <EstadoUsuario usuario={u} refetch={refetch} estado={"AUTORIZADO"} classname={"fas fa-check-circle p-1 text-xl text-gray-400 hover:text-green-600"} />
+                                            <EstadoUsuario usuario={u} refetch={refetch} estado={"NO_AUTORIZADO"} classname={"fas fa-times-circle p-1 text-xl text-gray-400 hover:text-red-600"} />
+                                        </PrivateComponent>
+                                        <PrivateComponent roleList={["LIDER"]}>
+                                            <EstadoUsuario usuario={u} refetch={refetch} estado={"AUTORIZADO"} classname={"fas fa-check-circle p-1 text-xl text-gray-400 hover:text-green-600"} />
+                                            <EstadoUsuario usuario={u} refetch={refetch} estado={"PENDIENTE"} classname={"fas fa-minus-circle p-1 text-xl text-gray-400 hover:text-yellow-400"} />
+                                        </PrivateComponent>
                                     </td>
                                 </tr>
                             );
@@ -79,7 +85,6 @@ const EstadoUsuario = ({ usuario, refetch, estado, classname }) => {
     const cambiarEstado = () => {
         cambiarEstadoUsuario({ variables: { _id: usuario._id, estado: estado } });
     };
-
     return (
         <button onClick={() => { cambiarEstado(); }}>
             <i className={classname} />
