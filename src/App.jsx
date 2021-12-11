@@ -81,7 +81,7 @@ function App() {
                 <Route path='' element={<Index />} />
                 <Route path='/usuarios' element={<IndexUsuarios />} />
                 {/* <Route path='/usuarios/editar/:_id' element={<EditarUsuario />} /> */}
-                <Route path='/perfil' element={<IndexPerfil />} />
+                <Route path='/perfil/' element={<IndexPerfil />} />
                 <Route path='/proyectos' element={<IndexProyectos />} />
                 <Route path='/avances' element={<IndexAvances />} />
                 <Route path='/inscripciones' element={<IndexInscripciones />} />
