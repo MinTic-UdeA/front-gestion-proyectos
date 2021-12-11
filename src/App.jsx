@@ -15,6 +15,7 @@ import IndexInscripciones from 'pages/inscripciones';
 import AuthLayout from 'layouts/AuthLayout';
 import Register from 'pages/auth/register';
 import Login from 'pages/auth/login';
+import NuevoProyecto from 'pages/proyectos/nuevo';
 import { AuthContext } from 'context/authContext';
 import jwt_decode from 'jwt-decode'
 
@@ -83,6 +84,7 @@ function App() {
                 {/* <Route path='/usuarios/editar/:_id' element={<EditarUsuario />} /> */}
                 <Route path='/perfil/' element={<IndexPerfil />} />
                 <Route path='/proyectos' element={<IndexProyectos />} />
+                <Route path='/proyectos/nuevo' element={<NuevoProyecto />} />
                 <Route path='/avances' element={<IndexAvances />} />
                 <Route path='/inscripciones' element={<IndexInscripciones />} />
               </Route>

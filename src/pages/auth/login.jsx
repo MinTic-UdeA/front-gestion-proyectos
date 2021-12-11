@@ -37,7 +37,7 @@ const Login = () => {
 
 
     return (
-        <div className='flex flex-col h-full w-full items-center justify-center'>
+        <div className='flex flex-col h-full w-full items-center justify-center bg-blue-100'>
                 <h1 className='text-xl font-bold text-gray-900'>Iniciar sesión</h1>
                 <form className='flex flex-col' onSubmit={submitForm} onChange={updateFormData} ref={form}>
                     <Input name='correo' type='email' label='Correo' required={true} />

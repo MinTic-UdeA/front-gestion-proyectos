@@ -12,7 +12,7 @@ import { EDITAR_USUARIO } from 'graphql/usuarios/mutations';
 import { GET_USUARIO } from 'graphql/usuarios/queries'
 
 const IndexPerfil = () => {
-
+ 
   const { userData } = useUser()
   console.log(userData._id)
   const { form, formData, updateFormData } = useFormData(null);
