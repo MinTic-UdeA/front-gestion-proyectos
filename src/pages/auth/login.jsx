@@ -16,7 +16,7 @@ const Login = () => {
 
     const navigate = useNavigate()
 
-    // const { setToken } = useAuth()
+    const { setToken } = useAuth()
 
     const { form, formData, updateFormData } = useFormData();
 

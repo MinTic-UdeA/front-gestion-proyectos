@@ -14,7 +14,7 @@ import IndexInscripciones from 'pages/inscripciones';
 import EditarUsuario from 'pages/usuarios/editar';
 import AuthLayout from 'layouts/AuthLayout';
 import Register from 'pages/auth/register';
-// import Login from 'pages/auth/login';
+//import Login from 'pages/auth/login';
 // import { AuthContext } from 'context/authContext';
 
 // import PrivateRoute from 'components/PrivateRoute';
@@ -59,7 +59,7 @@ function App() {
               </Route>
               <Route path='/auth' element={<AuthLayout />}>
                 <Route path='register' element={<Register />} />
-                {/* <Route path='login' element={<Login />} /> */}
+                <Route path='login' element={ <Register />/*<Login />*/} />
               </Route>
             </Routes>
           </BrowserRouter>
