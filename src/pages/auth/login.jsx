@@ -12,23 +12,18 @@ import { useNavigate } from 'react-router';
 import { useAuth } from 'context/authContext';
 
 
+
 const Login = () => {
 
-    const navigate = useNavigate()
-
     const { setToken } = useAuth()
-
+    const navigate = useNavigate()
     const { form, formData, updateFormData } = useFormData();
-
     const [login, { data: mutationData, loading: mutationLoading, error: mutationError }] = useMutation(LOGIN)
 
     const submitForm = (e) => {
         e.preventDefault();
-        console.log("enviar datos al backend", formData)
-        login({
-            variables: formData
-        })
-
+        console.log("soy un submit form");
+        login({ variables: formData })
     };
 
     useEffect(() => {
@@ -42,8 +37,7 @@ const Login = () => {
 
 
     return (
-        <div>
-            <div className='flex flex-col items-center justify-center w-full h-full p-10'>
+        <div className='flex flex-col h-full w-full items-center justify-center'>
                 <h1 className='text-xl font-bold text-gray-900'>Iniciar sesión</h1>
                 <form className='flex flex-col' onSubmit={submitForm} onChange={updateFormData} ref={form}>
                     <Input name='correo' type='email' label='Correo' required={true} />
@@ -58,7 +52,6 @@ const Login = () => {
                 <Link to='/auth/register'>
                     <span className='text-blue-700'>Regístrate</span>
                 </Link>
-            </div>
         </div>
     )
 }

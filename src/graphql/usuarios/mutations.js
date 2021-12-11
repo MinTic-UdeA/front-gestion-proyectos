@@ -12,4 +12,12 @@ mutation EditarUsuario($_id: String!, $nombre: String!, $apellido: String!, $ide
   }
 }
 `
-export { EDITAR_USUARIO }
+
+const CAMBIAR_ESTADO_USUARIO = gql`
+mutation cambiarEstadoUsuario($_id: String!, $estado: Enum_EstadoUsuario!) {
+  cambiarEstadoUsuario(_id: $_id, estado: $estado) {
+    estado
+  }
+}
+`
+export { EDITAR_USUARIO, CAMBIAR_ESTADO_USUARIO }
