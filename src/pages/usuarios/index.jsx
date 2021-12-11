@@ -8,10 +8,9 @@ import { toast } from 'react-toastify';
 import { Enum_Rol, Enum_EstadoUsuario } from 'utils/enums';
 import PrivateRoute from 'components/PrivateRoute';
 import PrivateComponent from 'components/PrivateComponent';
-import { useUser } from 'context/userContext';
 
 const IndexUsuarios = () => {
-    /*  const { userData } = useUser(); */
+
     const { data, error, loading, refetch } = useQuery(GET_USUARIOS);
 
     useEffect(() => {
