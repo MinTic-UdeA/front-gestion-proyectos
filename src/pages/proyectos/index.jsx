@@ -23,7 +23,11 @@ const IndexProyectos = () => {
     return (
         <PrivateRoute roleList={["LIDER", "ADMINISTRADOR", "ESTUDIANTE"]} >
             <div>
-                <h1 className="px-16 py-7 text-3xl text-gray-800">Listado de Proyectos</h1>
+                <div>
+                    <h1 className="px-16 py-7 text-3xl text-gray-800">Listado de Proyectos</h1>
+                    <div>Nuevo Proyecto</div>
+                </div>
+
                 <table className='tabla'>
                     <thead>
                         <tr>

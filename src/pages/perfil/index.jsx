@@ -40,54 +40,56 @@ const IndexPerfil = () => {
   if (queryLoading) return <div>Cargando....</div>;
 
   return (
-    <div className='flew flex-col w-full h-full items-center justify-center p-8'>
-      { queryData && queryData.Usuario ? (
-        <>
-          <h1 className='m-2 text-3xl text-gray-800 font-normal text-center'>Editar Perfil</h1>
-          <form
-            onSubmit={submitForm}
-            onChange={updateFormData}
-            ref={form}
-            className='flex flex-col items-center justify-center'
-          >
-            <Input
-              label='Nombre:'
-              type='text'
-              name='nombre'
-              defaultValue={queryData?.Usuario.nombre}
-              required={true}
-            />
-            <Input
-              label='Apellido:'
-              type='text'
-              name='apellido'
-              defaultValue={queryData?.Usuario.apellido}
-              required={true}
-            />
-            <Input
-              label='Correo:'
-              type='email'
-              name='correo'
-              defaultValue={queryData?.Usuario.correo}
-              required={true}
-            />
-            <Input
-              label='Identificación:'
-              type='text'
-              name='identificacion'
-              defaultValue={queryData?.Usuario.identificacion}
-              required={true}
-            />
-            <ButtonLoading
-              disabled={Object.keys(formData).length === 0}
-              loading={mutationLoading}
-              text='Confirmar' />
-          </form>
+    <PrivateRoute roleList={["LIDER", "ESTUDIANTE"]}>
+      <div className='flew flex-col w-full h-full items-center justify-center p-8'>
+        {queryData && queryData.Usuario ? (
+          <>
+            <h1 className='m-2 text-3xl text-gray-800 font-normal text-center'>Editar Perfil</h1>
+            <form
+              onSubmit={submitForm}
+              onChange={updateFormData}
+              ref={form}
+              className='flex flex-col items-center justify-center'
+            >
+              <Input
+                label='Nombre:'
+                type='text'
+                name='nombre'
+                defaultValue={queryData?.Usuario.nombre}
+                required={true}
+              />
+              <Input
+                label='Apellido:'
+                type='text'
+                name='apellido'
+                defaultValue={queryData?.Usuario.apellido}
+                required={true}
+              />
+              <Input
+                label='Correo:'
+                type='email'
+                name='correo'
+                defaultValue={queryData?.Usuario.correo}
+                required={true}
+              />
+              <Input
+                label='Identificación:'
+                type='text'
+                name='identificacion'
+                defaultValue={queryData?.Usuario.identificacion}
+                required={true}
+              />
+              <ButtonLoading
+                disabled={Object.keys(formData).length === 0}
+                loading={mutationLoading}
+                text='Confirmar' />
+            </form>
           </>
-      ) : (
-        <div>No autorizado</div>
-      )}
-    </div>
+        ) : (
+          <div>No autorizado</div>
+        )}
+      </div>
+    </PrivateRoute>
   )
 }
 export default IndexPerfil;
