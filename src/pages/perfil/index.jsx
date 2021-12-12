@@ -14,15 +14,12 @@ import { GET_USUARIO } from 'graphql/usuarios/queries'
 const IndexPerfil = () => {
  
   const { userData } = useUser()
-  console.log(userData._id)
+  
   const { form, formData, updateFormData } = useFormData(null);
 
   const _id = userData._id
 
   const { data: queryData, error: queryError, loading: queryLoading } = useQuery(GET_USUARIO, { variables: { _id: _id } });
-
-  // useEffect(() => {
-  // }, [queryData])
 
   const [editarUsuario, { data: mutationData, loading: mutationLoading, error: MutationError }] = useMutation(EDITAR_USUARIO);
 
