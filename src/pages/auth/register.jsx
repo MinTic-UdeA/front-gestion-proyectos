@@ -13,7 +13,7 @@ import { useAuth } from 'context/authContext';
 
 const Register = () => {
     
-    // const { setToken } = useAuth()
+    const { setToken } = useAuth()
     const navigate = useNavigate();
     const { form, formData, updateFormData } = useFormData();
     const [registrar, { data: mutationData, loading: mutationLoading, error: mutationError }] =

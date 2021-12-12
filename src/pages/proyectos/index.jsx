@@ -9,7 +9,9 @@ import { Enum_EstadoProyecto, Enum_FaseProyecto  } from 'utils/enums';
 
 const IndexProyectos = () => {
 
-    const { data, error, loading } = useQuery(GET_PROYECTOS);
+    //const { data, error, loading } = useQuery(GET_PROYECTOS);
+    const { data, error } = useQuery(GET_PROYECTOS);
+
 
     useEffect(() => {
         console.log("data log", data)
