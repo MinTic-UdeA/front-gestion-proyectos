@@ -10,6 +10,8 @@ import useFormData from 'hooks/useFormData';
 import Input from 'components/Input';
 import { useUser } from 'context/userContext';
 
+// new Date().toISOString().split("T")[0]
+
 const NuevoProyecto = () => {
 
     const { userData } = useUser();
@@ -23,15 +25,13 @@ const NuevoProyecto = () => {
     const [crearProyecto, { data: mutationData, loading: mutationLoading, error: mutationError }] =
         useMutation(CREAR_PROYECTO);
 
-    // necesario para que recargue por primera vez y muestre la información del líder
-    useEffect(() => {
-        console.log('datos USUARIO', queryData);
-    }, [queryData]);
+    // useEffect(() => {
+    // }, [queryData]);
 
     const submitForm = (e) => {
         e.preventDefault();
         formData.presupuesto = parseFloat(formData.presupuesto);
-        crearProyecto({ variables: { lider: userData._id, ...formData }});
+        crearProyecto({ variables: { lider: userData._id, ...formData } });
     };
 
     useEffect(() => {
@@ -51,42 +51,41 @@ const NuevoProyecto = () => {
     // if (queryData)
     return (
         <>
-            <Link to='/proyectos'>
-                <i className='mt-8 ml-8 fas fa-arrow-left text-gray-600 cursor-pointer font-bold text-xl hover:text-gray-900' />
-            </Link>
-            <h1 className='text-3xl my-4 text-center'>Creación de proyecto</h1>
-            {queryData && queryData.Usuario ? (
-                <>
-                    <form
-                        onSubmit={submitForm}
-                        onChange={updateFormData}
-                        ref={form}
-                        className='flex flex-col'
-                    >
-                        <div className='flex items-center justify-center'>
-                            <div className='mx-10'>
-                                <Input name='nombre' label='Nombre del Proyecto' required={true} type='text' />
-                                <Input name='presupuesto' label='Presupuesto del Proyecto' required={true} type='number' />
-                                <Input name='fechaInicio' label='Fecha de Inicio' required={true} type='date' />
-                                <Input name='fechaFin' label='Fecha de Fin' required={true} type='date' />
-                            </div >
-                            <div className='mx-10 self-start'>
-                                <label htmlFor="objGeneral" className='flex flex-col my-3'>Objetivo General
-                                    <textarea name='objGeneral' id='objGeneral' required={true} className="input" />
-                                </label>
-                                <label htmlFor="objEspecificos" className='flex flex-col my-3'>Objetivos Específicos
-                                    <textarea name='objEspecificos' label='Objetivos Específicos' required={true} className="input" />
-                                </label>
-                                <Input name='lider' label='Líder' required={true} type='text' disabled={true} defaultValue={queryData?.Usuario.nombre + " " + queryData?.Usuario.apellido} />
+            <PrivateRoute roleList={["LIDER"]}>
+                <Link to='/proyectos'>
+                    <i className='mt-4 ml-4 fas fa-arrow-left text-gray-600 cursor-pointer font-bold text-xl hover:text-gray-900' />
+                </Link>
+                <h1 className='text-3xl text-center'>Creación de proyecto</h1>
+                {queryData && queryData.Usuario ? (
+                    <>
+                        <form
+                            onSubmit={submitForm}
+                            onChange={updateFormData}
+                            ref={form}
+                            className='flex flex-col'
+                        >
+                            <div className='flex items-center justify-center'>
+                                <div className='mx-10'>
+                                    <Input name='nombre' label='Nombre del Proyecto' required={true} type='text' />
+                                    <Input name='presupuesto' label='Presupuesto del Proyecto' required={true} type='number' />
+                                    <label htmlFor="objGeneral" className='flex flex-col my-3'>Objetivo General
+                                        <textarea name='objGeneral' id='objGeneral' required={true} className="input" />
+                                    </label>
+                                    <label htmlFor="objEspecificos" className='flex flex-col my-3'>Objetivos Específicos
+                                        <textarea name='objEspecificos' label='Objetivos Específicos' required={true} className="input" />
+                                    </label>
+                                    <Input name='lider' label='Líder' required={true} type='text' disabled={true} defaultValue={queryData?.Usuario.nombre + " " + queryData?.Usuario.apellido} />
+                                </div>
                             </div>
-                        </div>
-                        <ButtonLoading text='Crear Proyecto' loading={false} disabled={false} />
-                    </form>
-                </>
-            ) : (
-                <div>No autorizado</div>
-            )}
+                            <ButtonLoading text='Crear Proyecto' loading={false} disabled={false} />
+                        </form>
+                    </>
+                ) : (
+                    <div>No autorizado</div>
+                )}
+            </PrivateRoute>
         </>
+
     );
 }
 

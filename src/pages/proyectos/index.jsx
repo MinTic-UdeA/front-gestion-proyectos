@@ -8,12 +8,11 @@ import { Enum_EstadoProyecto, Enum_FaseProyecto } from 'utils/enums';
 import PrivateRoute from 'components/PrivateRoute';
 
 const IndexProyectos = () => {
-
     //const { data, error, loading } = useQuery(GET_PROYECTOS);
     const { data, error } = useQuery(GET_PROYECTOS);
 
-
     useEffect(() => {
+
     }, [data])
 
     useEffect(() => {
@@ -24,6 +23,7 @@ const IndexProyectos = () => {
 
     return (
         <PrivateRoute roleList={["LIDER", "ADMINISTRADOR", "ESTUDIANTE"]} >
+           
             <div>
                 <div className="flex justify-between">
                     <h1 className="mx-16 my-8 text-3xl text-gray-800">Listado de Proyectos</h1>
