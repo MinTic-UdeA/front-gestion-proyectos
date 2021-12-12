@@ -6,7 +6,7 @@
 
 .tabla td,
 .tabla th {
-    padding: 8px;
+    padding: 4px 12px;
     border: 1px solid #ddd;
 }
 

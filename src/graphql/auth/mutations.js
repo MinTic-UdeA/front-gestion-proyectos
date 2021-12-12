@@ -9,6 +9,7 @@ const REGISTRAR = gql`
      $correo: String!, 
      $rol: Enum_Rol!, 
      $password: String!
+     $estado: Enum_EstadoUsuario
      ) {
   registrar(
       nombre: $nombre, 
@@ -16,7 +17,9 @@ const REGISTRAR = gql`
       identificacion: $identificacion, 
       correo: $correo, 
       rol: $rol, 
-      password: $password)
+      password: $password,
+      estado: $estado
+      )
       {
           token
           error
@@ -32,13 +35,13 @@ const REGISTRAR = gql`
     }
 `;
 
-// const REFRESH_TOKEN = gql`
-//   mutation RefreshToken {
-//     refreshToken {
-//       token
-//       error
-//     }
-//   }
-// `
+const REFRESH_TOKEN = gql`
+mutation RefreshToken {
+  refreshToken {
+    token
+    error
+  }
+}
+`;
 
-export { REGISTRAR, LOGIN }
+export { REGISTRAR, LOGIN, REFRESH_TOKEN }
