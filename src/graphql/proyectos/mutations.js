@@ -9,8 +9,24 @@ mutation CrearProyecto($nombre: String!, $presupuesto: Float!, $lider: String!, 
       _id
     }
   }
+}  
+`
+
+const EDITAR_PROYECTO = gql`
+mutation Mutation($_id: String!, $nombre: String!, $objGeneral: String!, $objEspecificos: String!, $presupuesto: Float!) {
+  editarProyecto(_id: $_id, nombre: $nombre, objGeneral: $objGeneral, objEspecificos: $objEspecificos, presupuesto: $presupuesto) {
+    _id
+    nombre
+    objGeneral
+    objEspecificos
+    presupuesto
+    lider {
+      _id
+    }
+  }
 }
 `
 
-export { CREAR_PROYECTO }
+
+export { CREAR_PROYECTO, EDITAR_PROYECTO }
 

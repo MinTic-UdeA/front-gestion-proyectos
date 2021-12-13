@@ -27,6 +27,9 @@ const IndexPerfil = () => {
     e.preventDefault();
     editarUsuario({ variables: { _id, ...formData } })
   }
+  
+  useEffect(() => {
+  }, [queryData])
 
   useEffect(() => {
     if (mutationData) {

@@ -4,20 +4,17 @@ import { useQuery } from '@apollo/client'
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import { Enum_EstadoProyecto, Enum_FaseProyecto } from 'utils/enums';
-// import ButtonLoading from 'components/ButtonLoading';
 import PrivateRoute from 'components/PrivateRoute';
 import { useUser } from 'context/userContext';
 
 const ProyectosLider = () => {
 
     const { userData } = useUser();
-   
-    const { data, error, loading } = useQuery(PROYECTOS_BY_LIDER, { variables: { lider: userData._id }});
-
-    console.log(data)
+    
+    const { data, error, loading, refetch } = useQuery(PROYECTOS_BY_LIDER, { variables: {lider: userData._id, estado: "ACTIVO"} });
 
     useEffect(() => {
-      
+        refetch()
     }, [data])
 
     useEffect(() => {

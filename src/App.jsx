@@ -15,9 +15,11 @@ import AuthLayout from 'layouts/AuthLayout';
 import Register from 'pages/auth/register';
 import Login from 'pages/auth/login';
 import NuevoProyecto from 'pages/proyectos/nuevo';
+import EditarProyecto from 'pages/proyectos/editar';
 import { AuthContext } from 'context/authContext';
 import jwt_decode from 'jwt-decode'
 import ProyectosLider from 'pages/proyectos/proyectosLider';
+
 
 // poder agregar funcionalidades como los tokens que vamos a tener que mandar para el backend
 const httpLink = createHttpLink({uri: "http://localhost:4000/graphql"})
@@ -85,6 +87,7 @@ function App() {
                 <Route path='/perfil/' element={<IndexPerfil />} />
                 <Route path='/proyectos' element={<ProyectosLider />} />
                 <Route path='/proyectos/nuevo' element={<NuevoProyecto />} />
+                <Route path='/proyectos/editar/:_id' element={<EditarProyecto />} />
                 <Route path='/avances' element={<IndexAvances />} />
                 <Route path='/inscripciones' element={<IndexInscripciones />} />
               </Route>
