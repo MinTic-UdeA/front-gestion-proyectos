@@ -28,7 +28,7 @@ const ProyectosLider = () => {
             <div>
                 <div className="flex justify-between">
                     <h1 className="mx-16 my-8 text-3xl text-gray-800">Listado de Proyectos</h1>
-                    <Link to="/proyectos/nuevo">
+                    <Link to="/proyectoslider/nuevo">
                         <div className="w-40 my-8 p-1 mx-16 bg-indigo-700 text-white text-center text-lg rounded-xl hover:bg-indigo-500 shadow-md disabled:opacity-50 disabled:bg-gray-700 cursor-pointer">Nuevo Proyecto</div>
                     </Link>
                 </div>

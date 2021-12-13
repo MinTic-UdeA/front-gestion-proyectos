@@ -19,6 +19,7 @@ import EditarProyecto from 'pages/proyectos/editar';
 import { AuthContext } from 'context/authContext';
 import jwt_decode from 'jwt-decode'
 import ProyectosLider from 'pages/proyectos/proyectosLider';
+import ProyectosAdmin from 'pages/proyectos/proyectosAdmin';
 
 
 // poder agregar funcionalidades como los tokens que vamos a tener que mandar para el backend
@@ -85,8 +86,9 @@ function App() {
                 <Route path='/usuarios' element={<IndexUsuarios />} />
                 {/* <Route path='/usuarios/editar/:_id' element={<EditarUsuario />} /> */}
                 <Route path='/perfil/' element={<IndexPerfil />} />
-                <Route path='/proyectos' element={<ProyectosLider />} />
-                <Route path='/proyectos/nuevo' element={<NuevoProyecto />} />
+                <Route path='/proyectoslider/' element={<ProyectosLider />} />
+                <Route path='/proyectoslider/nuevo' element={<NuevoProyecto />} />
+                  <Route path='/proyectosadmin/' element={<ProyectosAdmin />} />
                 <Route path='/proyectos/editar/:_id' element={<EditarProyecto />} />
                 <Route path='/avances' element={<IndexAvances />} />
                 <Route path='/inscripciones' element={<IndexInscripciones />} />

@@ -1,17 +1,16 @@
 import React, { useEffect } from 'react'
-import { PROYECTOS_BY_LIDER } from 'graphql/proyectos/queries';
 import { useQuery } from '@apollo/client'
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import { Enum_EstadoProyecto, Enum_FaseProyecto } from 'utils/enums';
-// import ButtonLoading from 'components/ButtonLoading';
 import PrivateRoute from 'components/PrivateRoute';
 import { useUser } from 'context/userContext';
+import { GET_PROYECTOS } from 'graphql/proyectos/queries';
 
-const ProyectosLider = () => {
+const ProyectosAdmin = () => {
 
     const { userData } = useUser();
-    const { data, error, loading } = useQuery(PROYECTOS_BY_LIDER, { variables: { id: userData_.id }});
+    const { data, error, loading } = useQuery(GET_PROYECTOS);
 
     useEffect(() => {
 
@@ -24,13 +23,10 @@ const ProyectosLider = () => {
     }, [error])
 
     return (
-        <PrivateRoute roleList={["LIDER"]} >
+        <PrivateRoute roleList={["ADMINISTRADOR"]} >
             <div>
                 <div className="flex justify-between">
                     <h1 className="mx-16 my-8 text-3xl text-gray-800">Listado de Proyectos</h1>
-                    <Link to="/proyectos/nuevo">
-                        <div className="w-40 my-8 p-1 mx-16 bg-indigo-700 text-white text-center text-lg rounded-xl hover:bg-indigo-500 shadow-md disabled:opacity-50 disabled:bg-gray-700 cursor-pointer">Nuevo Proyecto</div>
-                    </Link>
                 </div>
 
                 <table className='tabla'>
@@ -48,7 +44,7 @@ const ProyectosLider = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {/* {data && data.Proyectos.map((p) => {
+                        {data && data.Proyectos.map((p) => {
                             return (
                                 <tr key={p._id}>
                                     <td>{p.nombre}</td>
@@ -68,7 +64,7 @@ const ProyectosLider = () => {
                             );
                         }
 
-                        )} */}
+                        )}
                     </tbody>
                 </table>
             </div>
@@ -77,6 +73,6 @@ const ProyectosLider = () => {
 }
 
 
-export default ProyectosLider
+export default ProyectosAdmin
 
 

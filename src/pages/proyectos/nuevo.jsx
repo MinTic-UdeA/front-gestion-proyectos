@@ -52,7 +52,7 @@ const NuevoProyecto = () => {
     return (
         <>
             <PrivateRoute roleList={["LIDER"]}>
-                <Link to='/proyectos'>
+                <Link to='/proyectoslider'>
                     <i className='mt-4 ml-4 fas fa-arrow-left text-gray-600 cursor-pointer font-bold text-xl hover:text-gray-900' />
                 </Link>
                 <h1 className='text-3xl text-center'>Creación de proyecto</h1>
