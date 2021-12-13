@@ -12,22 +12,5 @@ mutation CrearProyecto($nombre: String!, $presupuesto: Float!, $lider: String!, 
 }
 `
 
-const PROYECTO_BY_LIDER = gql`
-query ListarProyectosByLider($lider: String) {
-  listarProyectosByLider(lider: $lider) {
-    _id
-    nombre
-    objGeneral
-    objEspecificos
-    presupuesto
-    fechaInicio
-    fechaFin
-    estado
-    fase
-  }
-}
-`
-
-
 export { CREAR_PROYECTO }
 

@@ -1,15 +1,17 @@
 import React, { useEffect } from 'react'
-import { GET_PROYECTOS } from 'graphql/proyectos/queries'
+import { PROYECTOS_BY_LIDER } from 'graphql/proyectos/queries';
 import { useQuery } from '@apollo/client'
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import { Enum_EstadoProyecto, Enum_FaseProyecto } from 'utils/enums';
 // import ButtonLoading from 'components/ButtonLoading';
 import PrivateRoute from 'components/PrivateRoute';
+import { useUser } from 'context/userContext';
 
-const IndexProyectos = () => {
-    //const { data, error, loading } = useQuery(GET_PROYECTOS);
-    const { data, error } = useQuery(GET_PROYECTOS);
+const ProyectosLider = () => {
+
+    const { userData } = useUser();
+    const { data, error, loading } = useQuery(PROYECTOS_BY_LIDER, { variables: { id: userData_.id }});
 
     useEffect(() => {
 
@@ -22,8 +24,7 @@ const IndexProyectos = () => {
     }, [error])
 
     return (
-        <PrivateRoute roleList={["LIDER", "ADMINISTRADOR", "ESTUDIANTE"]} >
-           
+        <PrivateRoute roleList={["LIDER"]} >
             <div>
                 <div className="flex justify-between">
                     <h1 className="mx-16 my-8 text-3xl text-gray-800">Listado de Proyectos</h1>
@@ -47,7 +48,7 @@ const IndexProyectos = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {data && data.Proyectos.map((p) => {
+                        {/* {data && data.Proyectos.map((p) => {
                             return (
                                 <tr key={p._id}>
                                     <td>{p.nombre}</td>
@@ -67,7 +68,7 @@ const IndexProyectos = () => {
                             );
                         }
 
-                        )}
+                        )} */}
                     </tbody>
                 </table>
             </div>
@@ -75,6 +76,7 @@ const IndexProyectos = () => {
     )
 }
 
-export default IndexProyectos
+
+export default ProyectosLider
 
 

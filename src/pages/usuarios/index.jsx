@@ -9,6 +9,7 @@ import { Enum_Rol, Enum_EstadoUsuario } from 'utils/enums';
 import PrivateRoute from 'components/PrivateRoute';
 import PrivateComponent from 'components/PrivateComponent';
 
+
 const IndexUsuarios = () => {
 
     const { data, error, loading, refetch } = useQuery(GET_USUARIOS);
@@ -25,7 +26,7 @@ const IndexUsuarios = () => {
     if (loading) return <div className="m-4">Cargando....</div>;
 
     return (
-        <PrivateRoute roleList={["LIDER", "ADMINISTRADOR"]} >
+        <PrivateRoute roleList={["LIDER"]} >
             <div>
                 <h1 className="px-16 py-7 text-3xl text-gray-800">Listado de Usuarios</h1>
                 <table className='tabla'>

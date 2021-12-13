@@ -17,4 +17,22 @@ const GET_PROYECTOS = gql`
     }
 `
 
-export { GET_PROYECTOS }
+const PROYECTOS_BY_LIDER = gql`
+query ListarProyectosByLider($lider: String) {
+  listarProyectosByLider(lider: $lider) {
+    _id
+    nombre
+    objGeneral
+    objEspecificos
+    presupuesto
+    fechaInicio
+    fechaFin
+    estado
+    fase
+  }
+}
+`
+
+export { PROYECTOS_BY_LIDER , GET_PROYECTOS }
+
+

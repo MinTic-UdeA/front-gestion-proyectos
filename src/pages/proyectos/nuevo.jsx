@@ -18,9 +18,9 @@ const NuevoProyecto = () => {
 
     const { form, formData, updateFormData } = useFormData();
 
-    const _id = userData._id;
+    // const _id = userData._id;
 
-    const { data: queryData, error: queryError, loading: queryLoading } = useQuery(GET_USUARIO, { variables: { _id: _id } });
+    const { data: queryData, error: queryError, loading: queryLoading } = useQuery(GET_USUARIO, { variables: { _id: userData._id } });
 
     const [crearProyecto, { data: mutationData, loading: mutationLoading, error: mutationError }] =
         useMutation(CREAR_PROYECTO);
