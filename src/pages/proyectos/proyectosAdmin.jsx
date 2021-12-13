@@ -38,7 +38,8 @@ const ProyectosAdmin = () => {
                             <th>Fecha Fin</th>
                             <th>Estado</th>
                             <th>Fase</th>
-                            <th>Editar</th>
+                            <th>Lider</th>
+                            <th>Acción</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -53,10 +54,10 @@ const ProyectosAdmin = () => {
                                     <td>{p.fechaFin}</td>
                                     <td>{Enum_EstadoProyecto[p.estado]}</td>
                                     <td>{Enum_FaseProyecto[p.fase]}</td>
+                                    <td>{p.lider.correo}</td>
                                     <td className="text-center">
-                                        <Link to={`/proyectos/editar/${p._id}`}>
-                                            <i className='fas fa-pen text-gray-400 hover:text-gray-600 cursor-pointer' />
-                                        </Link>
+                                        
+                                      
                                     </td>
                                 </tr>
                             );
@@ -68,6 +69,18 @@ const ProyectosAdmin = () => {
             </div>
         </PrivateRoute>
     )
+}
+
+const AprobarProyecto = () => {
+
+}
+
+const DesactivarProyecto = () => {
+
+}
+
+const TerminarProyecto = () => {
+
 }
 
 
