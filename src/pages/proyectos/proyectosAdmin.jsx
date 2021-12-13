@@ -4,12 +4,10 @@ import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import { Enum_EstadoProyecto, Enum_FaseProyecto } from 'utils/enums';
 import PrivateRoute from 'components/PrivateRoute';
-import { useUser } from 'context/userContext';
 import { GET_PROYECTOS } from 'graphql/proyectos/queries';
 
 const ProyectosAdmin = () => {
 
-    const { userData } = useUser();
     const { data, error, loading } = useQuery(GET_PROYECTOS);
 
     useEffect(() => {

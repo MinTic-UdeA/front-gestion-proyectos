@@ -12,7 +12,7 @@ const GET_PROYECTOS = gql`
             fechaInicio
             fechaFin
             estado
-            fase      
+            fase
         }
     }
 `

@@ -26,7 +26,16 @@ mutation Mutation($_id: String!, $nombre: String!, $objGeneral: String!, $objEsp
   }
 }
 `
+const APROBAR_PROYECTO = gql`
+mutation aprobarProyecto($id: String!, $estado: Enum_EstadoProyecto, $fase: Enum_FaseProyecto) {
+  aprobarProyecto(_id: $id, estado: $estado, fase: $fase) {
+    _id
+  }
+}
 
 
-export { CREAR_PROYECTO, EDITAR_PROYECTO }
+`
+
+
+export { CREAR_PROYECTO, EDITAR_PROYECTO, APROBAR_PROYECTO }
 
