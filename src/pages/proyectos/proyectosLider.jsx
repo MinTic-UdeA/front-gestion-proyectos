@@ -10,12 +10,14 @@ import { useUser } from 'context/userContext';
 const ProyectosLider = () => {
 
     const { userData } = useUser();
-    
-    const { data, error, loading, refetch } = useQuery(PROYECTOS_BY_LIDER, { variables: {lider: userData._id, estado: "ACTIVO"} });
 
+    const { data, error, loading, refetch } = useQuery(PROYECTOS_BY_LIDER, { variables: { _id: userData._id } });
+    console.log(data)
     useEffect(() => {
         refetch()
     }, [data])
+
+    // console.log(data.ListarProyectosByLider)
 
     useEffect(() => {
         if (error) {
@@ -59,9 +61,10 @@ const ProyectosLider = () => {
                                     <td>{Enum_EstadoProyecto[p.estado]}</td>
                                     <td>{Enum_FaseProyecto[p.fase]}</td>
                                     <td className="text-center">
+                                        {p.estado === "ACTIVO" ? (
                                         <Link to={`/proyectos/editar/${p._id}`}>
                                             <i className='fas fa-pen text-gray-400 hover:text-gray-600 cursor-pointer' />
-                                        </Link>
+                                        </Link>) : (<div></div>)}
                                     </td>
                                 </tr>
                             );
