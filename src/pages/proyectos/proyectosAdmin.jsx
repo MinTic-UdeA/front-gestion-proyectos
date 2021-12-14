@@ -12,10 +12,9 @@ import { REACTIVAR_PROYECTO } from 'graphql/proyectos/mutations';
 
 const ProyectosAdmin = () => {
 
-    const { data, error, loading } = useQuery(GET_PROYECTOS);
+    const { data, error, loading, refetch } = useQuery(GET_PROYECTOS);
 
     useEffect(() => {
-
     }, [data])
 
     useEffect(() => {
@@ -58,15 +57,14 @@ const ProyectosAdmin = () => {
                                     <td>{p.fechaFin}</td>
                                     <td>{Enum_EstadoProyecto[p.estado]}</td>
                                     <td>{Enum_FaseProyecto[p.fase]}
-                                    {p.estado === "ACTIVO" && p.fase ==="DESARROLLO" ? (  <TerminarProyecto proyecto={p._id}></TerminarProyecto>) : (<></>)}
-                                    
+                                        {p.estado === "ACTIVO" && p.fase === "DESARROLLO" ? (<TerminarProyecto proyecto={p._id} refetch={refetch}></TerminarProyecto>) : (<></>)}
                                     </td>
                                     <td>{p.lider.correo}</td>
-                                    <td className="text-center"> 
-                                    {p.estado === "INACTIVO" && p.fase ==="NULO" ? (  <AprobarProyecto proyecto={p._id}></AprobarProyecto>) : (<></>)}
-                                    {(p.estado === "ACTIVO") && (p.fase === "DESARROLLO" || p.fase === "INICIADO") ? (  <DesactivarProyecto proyecto={p._id}></DesactivarProyecto>) : (<></>)}
-                                    {/* {p.estado === "ACTIVO" && p.fase ==="NULO" ? (  <TerminarProyecto proyecto={p._id}></TerminarProyecto>) : (<></>)} */}
-                                    {(p.estado === "INACTIVO") && (p.fase === "DESARROLLO" || p.fase === "INICIADO") ? (  <ReactivarProyecto proyecto={p._id}></ReactivarProyecto>) : (<></>)} 
+                                    <td className="text-center">
+                                        {p.estado === "INACTIVO" && p.fase === "NULO" ? (<AprobarProyecto proyecto={p._id} refetch={refetch}></AprobarProyecto >) : (<></>)}
+                                        {(p.estado === "ACTIVO") && (p.fase === "DESARROLLO" || p.fase === "INICIADO") ? (<DesactivarProyecto proyecto={p._id} refetch={refetch}></DesactivarProyecto>) : (<></>)}
+
+                                        {(p.estado === "INACTIVO") && (p.fase === "DESARROLLO" || p.fase === "INICIADO") ? (<ReactivarProyecto proyecto={p._id} refetch={refetch}></ReactivarProyecto>) : (<></>)}
                                     </td>
                                 </tr>
                             );
@@ -80,17 +78,16 @@ const ProyectosAdmin = () => {
     )
 }
 
-const AprobarProyecto = ({proyecto}) => {
+const AprobarProyecto = ({ proyecto, refetch }) => {
 
     const [aprobarProyecto, { data: mutationData, error: mutationError, loading: mutationLoading }] = useMutation(APROBAR_PROYECTO)
 
     useEffect(() => {
-        if (mutationData) {
-        }
+        refetch()
     }, [mutationData]);
 
     const aprobarProyectoBoton = () => {
-        aprobarProyecto({ variables: { _id: proyecto._id, ...proyecto } });
+        aprobarProyecto({ variables: { _id: proyecto } });
     };
 
     return (
@@ -100,16 +97,15 @@ const AprobarProyecto = ({proyecto}) => {
     )
 }
 
-const DesactivarProyecto = ({proyecto}) => {
+const DesactivarProyecto = ({ proyecto, refetch }) => {
     const [desactivarProyecto, { data: mutationData, error: mutationError, loading: mutationLoading }] = useMutation(DESACTIVAR_PROYECTO)
 
     useEffect(() => {
-        if (mutationData) {
-        }
+        refetch()
     }, [mutationData]);
 
     const desactivarProyectoBoton = () => {
-        desactivarProyecto({ variables: { _id: proyecto._id, ...proyecto } });
+        desactivarProyecto({ variables: { _id: proyecto } });
     };
 
     return (
@@ -119,16 +115,15 @@ const DesactivarProyecto = ({proyecto}) => {
     )
 }
 
-const TerminarProyecto = ({proyecto}) => {
+const TerminarProyecto = ({ proyecto, refetch }) => {
     const [terminarProyecto, { data: mutationData, error: mutationError, loading: mutationLoading }] = useMutation(TERMINAR_PROYECTO)
 
     useEffect(() => {
-        if (mutationData) {
-        }
+        refetch()
     }, [mutationData]);
 
     const terminarProyectoBoton = () => {
-        terminarProyecto({ variables: { _id: proyecto._id, ...proyecto } });
+        terminarProyecto({ variables: { _id: proyecto } });
     };
 
     return (
@@ -139,16 +134,15 @@ const TerminarProyecto = ({proyecto}) => {
 }
 
 
-const ReactivarProyecto = ({proyecto}) => {
+const ReactivarProyecto = ({ proyecto, refetch }) => {
     const [reactivarProyecto, { data: mutationData, error: mutationError, loading: mutationLoading }] = useMutation(REACTIVAR_PROYECTO)
 
     useEffect(() => {
-        if (mutationData) {
-        }
+        refetch()
     }, [mutationData]);
 
     const reactivarProyectoBoton = () => {
-        reactivarProyecto({ variables: { _id: proyecto._id, ...proyecto } });
+        reactivarProyecto({ variables: { _id: proyecto, ...proyecto } });
     };
 
     return (
