@@ -53,8 +53,8 @@ const ProyectosAdmin = () => {
                                     <td>{p.objGeneral}</td>
                                     <td>{p.objEspecificos}</td>
                                     <td>{p.presupuesto}</td>
-                                    <td>{p.fechaInicio}</td>
-                                    <td>{p.fechaFin}</td>
+                                    <td className="w-28">{p.fechaInicio}</td>
+                                    <td className="w-28">{p.fechaFin}</td>
                                     <td>{Enum_EstadoProyecto[p.estado]}</td>
                                     <td>{Enum_FaseProyecto[p.fase]}
                                         {p.estado === "ACTIVO" && p.fase === "DESARROLLO" ? (<TerminarProyecto proyecto={p._id} refetch={refetch}></TerminarProyecto>) : (<></>)}
