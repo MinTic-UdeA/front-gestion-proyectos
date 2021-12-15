@@ -87,7 +87,7 @@ const AprobarProyecto = ({ proyecto, refetch }) => {
     }, [mutationData]);
 
     const aprobarProyectoBoton = () => {
-        aprobarProyecto({ variables: { _id: proyecto } });
+        aprobarProyecto({ variables: { _id: proyecto, ...proyecto } });
     };
 
     return (
@@ -139,10 +139,13 @@ const ReactivarProyecto = ({ proyecto, refetch }) => {
 
     useEffect(() => {
         refetch()
+        console.log(proyecto)
     }, [mutationData]);
 
     const reactivarProyectoBoton = () => {
-        reactivarProyecto({ variables: { _id: proyecto, ...proyecto } });
+        console.log(proyecto)
+        reactivarProyecto({ variables: { _id: proyecto } });
+
     };
 
     return (

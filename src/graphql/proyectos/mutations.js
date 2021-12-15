@@ -28,33 +28,32 @@ mutation editarProyecto($_id: String!, $nombre: String!, $objGeneral: String!, $
 `
 
 const APROBAR_PROYECTO = gql`
-  mutation aprobarProyecto($_id: String!) {
-  aprobarProyecto(_id: $_id) {
+mutation AprobarProyecto($_id: String!, $estado: Enum_EstadoProyecto, $fase: Enum_FaseProyecto, $fechaInicio: String) {
+  aprobarProyecto(_id: $_id, estado: $estado, fase: $fase, fechaInicio: $fechaInicio) {
     _id
   }
 }
 `
 
 const DESACTIVAR_PROYECTO = gql`
-mutation DesactivarProyecto($_id: String!) {
-  desactivarProyecto(_id: $_id) {
+mutation DesactivarProyecto($_id: String!, $estado: Enum_EstadoProyecto, $fechaFin: String) {
+  desactivarProyecto(_id: $_id, estado: $estado, fechaFin: $fechaFin) {
     _id
   }
 }
+
 `
 const TERMINAR_PROYECTO = gql`
- mutation terminarProyecto($_id: String!) {
-  terminarProyecto(_id: $_id) {
+mutation TerminarProyecto($_id: String!, $estado: Enum_EstadoProyecto, $fase: Enum_FaseProyecto, $fechaFin: String) {
+  terminarProyecto(_id: $_id, estado: $estado, fase: $fase, fechaFin: $fechaFin) {
     _id
-  
   }
 }
 `
 const REACTIVAR_PROYECTO = gql`
- mutation reactivarProyecto($_id: String!) {
-  reactivarProyecto(_id: $_id) {
+mutation ReactivarProyecto($_id: String!, $estado: Enum_EstadoProyecto, $fechaInicio: String) {
+  reactivarProyecto(_id: $_id, estado: $estado, fechaInicio: $fechaInicio) {
     _id
-   
   }
 }
 `
