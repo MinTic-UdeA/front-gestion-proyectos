@@ -34,8 +34,18 @@ const SidebarLinks = () => {
           <SidebarRoute to='/perfil' title='Perfil' icon='fas fa-user-cog' />
         </PrivateComponent>
 
-        <PrivateComponent roleList={["ADMINISTRADOR", "LIDER", "ESTUDIANTE"]}>
-          <SidebarRoute to='/proyectos' title='Proyectos' icon='far fa-lightbulb' />
+        <PrivateComponent roleList={["ADMINISTRADOR"]}>
+          <SidebarRoute to='/proyectosadmin' title='Proyectos' icon='far fa-lightbulb' />
+        </PrivateComponent>
+
+        
+        <PrivateComponent roleList={["LIDER"]}>
+          <SidebarRoute to='/proyectoslider' title='Proyectos' icon='far fa-lightbulb' />
+        </PrivateComponent>
+
+        
+        <PrivateComponent roleList={["ESTUDIANTE"]}>
+          <SidebarRoute to='/proyectosestudiante' title='Proyectos' icon='far fa-lightbulb' />
         </PrivateComponent>
 
         <PrivateComponent roleList={["LIDER", "ESTUDIANTE"]}>

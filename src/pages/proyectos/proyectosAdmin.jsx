@@ -1,19 +1,17 @@
 import React, { useEffect } from 'react'
-import { GET_PROYECTOS } from 'graphql/proyectos/queries'
 import { useQuery } from '@apollo/client'
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import { Enum_EstadoProyecto, Enum_FaseProyecto } from 'utils/enums';
-// import ButtonLoading from 'components/ButtonLoading';
 import PrivateRoute from 'components/PrivateRoute';
+import { GET_PROYECTOS } from 'graphql/proyectos/queries';
 
-const IndexProyectos = () => {
+const ProyectosAdmin = () => {
 
-    //const { data, error, loading } = useQuery(GET_PROYECTOS);
-    const { data, error } = useQuery(GET_PROYECTOS);
-
+    const { data, error, loading } = useQuery(GET_PROYECTOS);
 
     useEffect(() => {
+
     }, [data])
 
     useEffect(() => {
@@ -23,11 +21,10 @@ const IndexProyectos = () => {
     }, [error])
 
     return (
-        <PrivateRoute roleList={["LIDER", "ADMINISTRADOR", "ESTUDIANTE"]} >
+        <PrivateRoute roleList={["ADMINISTRADOR"]} >
             <div>
-                <div>
-                    <h1 className="px-16 py-7 text-3xl text-gray-800">Listado de Proyectos</h1>
-                    <div>Nuevo Proyecto</div>
+                <div className="flex justify-between">
+                    <h1 className="mx-16 my-8 text-3xl text-gray-800">Listado de Proyectos</h1>
                 </div>
 
                 <table className='tabla'>
@@ -41,7 +38,8 @@ const IndexProyectos = () => {
                             <th>Fecha Fin</th>
                             <th>Estado</th>
                             <th>Fase</th>
-                            <th>Editar</th>
+                            <th>Lider</th>
+                            <th>Acción</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -56,10 +54,10 @@ const IndexProyectos = () => {
                                     <td>{p.fechaFin}</td>
                                     <td>{Enum_EstadoProyecto[p.estado]}</td>
                                     <td>{Enum_FaseProyecto[p.fase]}</td>
+                                    <td>{p.lider.correo}</td>
                                     <td className="text-center">
-                                        <Link to={`/proyectos/editar/${p._id}`}>
-                                            <i className='fas fa-pen text-gray-400 hover:text-gray-600 cursor-pointer' />
-                                        </Link>
+                                        
+                                      
                                     </td>
                                 </tr>
                             );
@@ -73,6 +71,19 @@ const IndexProyectos = () => {
     )
 }
 
-export default IndexProyectos
+const AprobarProyecto = () => {
+
+}
+
+const DesactivarProyecto = () => {
+
+}
+
+const TerminarProyecto = () => {
+
+}
+
+
+export default ProyectosAdmin
 
 

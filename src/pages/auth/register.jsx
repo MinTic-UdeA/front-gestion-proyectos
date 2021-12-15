@@ -12,8 +12,9 @@ import { useNavigate } from 'react-router';
 import { useAuth } from 'context/authContext';
 
 const Register = () => {
+    
     const { setToken } = useAuth()
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const { form, formData, updateFormData } = useFormData();
     const [registrar, { data: mutationData, loading: mutationLoading, error: mutationError }] =
         useMutation(REGISTRAR);
@@ -40,7 +41,7 @@ const Register = () => {
 
 
     return (
-        <div className='flex flex-col h-full w-full items-center justify-center'>
+        <div className='flex flex-col h-full w-full items-center justify-center bg-blue-100'>
             <h1 className='text-3xl my-4 font-semibold'>Regístrate</h1>
             <form className='flex flex-col' onSubmit={submitForm} onChange={updateFormData} ref={form}>
                 <div className='grid grid-cols-2 gap-5'>

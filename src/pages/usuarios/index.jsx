@@ -3,11 +3,11 @@ import React, { useEffect } from 'react'
 import { GET_USUARIOS } from 'graphql/usuarios/queries'
 import { CAMBIAR_ESTADO_USUARIO } from 'graphql/usuarios/mutations';
 import { useQuery, useMutation } from '@apollo/client'
-import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Enum_Rol, Enum_EstadoUsuario } from 'utils/enums';
 import PrivateRoute from 'components/PrivateRoute';
 import PrivateComponent from 'components/PrivateComponent';
+
 
 const IndexUsuarios = () => {
 

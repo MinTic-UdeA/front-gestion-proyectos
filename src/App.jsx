@@ -9,14 +9,18 @@ import "styles/globals.css";
 import "styles/tabla.css"
 import IndexUsuarios from 'pages/usuarios';
 import IndexPerfil from 'pages/perfil';
-import IndexProyectos from 'pages/proyectos';
 import IndexAvances from 'pages/avances';
 import IndexInscripciones from 'pages/inscripciones';
 import AuthLayout from 'layouts/AuthLayout';
 import Register from 'pages/auth/register';
 import Login from 'pages/auth/login';
+import NuevoProyecto from 'pages/proyectos/nuevo';
+import EditarProyecto from 'pages/proyectos/editar';
 import { AuthContext } from 'context/authContext';
 import jwt_decode from 'jwt-decode'
+import ProyectosLider from 'pages/proyectos/proyectosLider';
+import ProyectosAdmin from 'pages/proyectos/proyectosAdmin';
+
 
 // poder agregar funcionalidades como los tokens que vamos a tener que mandar para el backend
 const httpLink = createHttpLink({uri: "http://localhost:4000/graphql"})
@@ -82,7 +86,10 @@ function App() {
                 <Route path='/usuarios' element={<IndexUsuarios />} />
                 {/* <Route path='/usuarios/editar/:_id' element={<EditarUsuario />} /> */}
                 <Route path='/perfil/' element={<IndexPerfil />} />
-                <Route path='/proyectos' element={<IndexProyectos />} />
+                <Route path='/proyectoslider/' element={<ProyectosLider />} />
+                <Route path='/proyectoslider/nuevo' element={<NuevoProyecto />} />
+                  <Route path='/proyectosadmin/' element={<ProyectosAdmin />} />
+                <Route path='/proyectos/editar/:_id' element={<EditarProyecto />} />
                 <Route path='/avances' element={<IndexAvances />} />
                 <Route path='/inscripciones' element={<IndexInscripciones />} />
               </Route>
