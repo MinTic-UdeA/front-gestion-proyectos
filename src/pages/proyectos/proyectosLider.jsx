@@ -15,7 +15,7 @@ const ProyectosLider = () => {
 
     useEffect(() => {
         refetch()
-    }, [data])
+    }, [data, refetch])
 
     useEffect(() => {
         if (error) {

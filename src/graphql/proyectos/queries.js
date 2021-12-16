@@ -43,6 +43,8 @@ query ListarProyectosByLider($lider: String, $estado: Enum_EstadoProyecto) {
     presupuesto
     estado
     fase
+    fechaInicio
+    fechaFin
   }
 }
 #{ AND: [{ rated: "PG-13" }, { runtime_lt: 120 }] }) 

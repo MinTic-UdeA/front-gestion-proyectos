@@ -1,17 +1,18 @@
 import React, { useEffect } from 'react'
-import { useQuery } from '@apollo/client'
+import { useQuery, useMutation } from '@apollo/client';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import { Enum_EstadoProyecto, Enum_FaseProyecto } from 'utils/enums';
 import PrivateRoute from 'components/PrivateRoute';
+import PrivateComponent from 'components/PrivateComponent';
 import { GET_PROYECTOS } from 'graphql/proyectos/queries';
+import { APROBAR_PROYECTO } from 'graphql/proyectos/mutations';
 
 const ProyectosAdmin = () => {
 
-    const { data, error, loading } = useQuery(GET_PROYECTOS);
+    const { data, error, loading, refetch } = useQuery(GET_PROYECTOS);
 
     useEffect(() => {
-
     }, [data])
 
     useEffect(() => {
@@ -56,7 +57,10 @@ const ProyectosAdmin = () => {
                                     <td>{Enum_FaseProyecto[p.fase]}</td>
                                     <td>{p.lider.correo}</td>
                                     <td className="text-center">
-                                        
+                                        <PrivateComponent roleList={["ADMINISTRADOR"]}>
+                                            <AprobarProyecto proyecto={p} refetch={refetch} estado={"ACTIVO"} classname={"fas fa-check-circle p-1 text-xl text-gray-400 hover:text-green-600"} />
+                                            <AprobarProyecto proyecto={p} refetch={refetch} estado={"INACTIVO"} classname={"fas fa-times-circle p-1 text-xl text-gray-400 hover:text-red-600"} />
+                                        </PrivateComponent>
                                       
                                     </td>
                                 </tr>
@@ -71,7 +75,24 @@ const ProyectosAdmin = () => {
     )
 }
 
-const AprobarProyecto = () => {
+const AprobarProyecto = ({ proyecto, refetch, estado, classname }) => {
+
+    const [cambiarEstadoProyecto, { data: mutationData, error: mutationError, loading: mutationLoading }] = useMutation(APROBAR_PROYECTO)
+
+    useEffect(() => {
+        if (mutationData) {
+            refetch();
+        }
+    }, [mutationData, refetch]);
+
+    const cambiarEstado = () => {
+        cambiarEstadoProyecto({ variables: { _id: proyecto._id, estado: estado } });
+    };
+    return (
+        <button onClick={() => { cambiarEstado(); }}>
+            <i className={classname} />
+        </button>
+    );
 
 }
 

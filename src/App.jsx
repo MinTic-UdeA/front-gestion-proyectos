@@ -88,7 +88,7 @@ function App() {
                 <Route path='/perfil/' element={<IndexPerfil />} />
                 <Route path='/proyectoslider/' element={<ProyectosLider />} />
                 <Route path='/proyectoslider/nuevo' element={<NuevoProyecto />} />
-                  <Route path='/proyectosadmin/' element={<ProyectosAdmin />} />
+                <Route path='/proyectosadmin/' element={<ProyectosAdmin />} />
                 <Route path='/proyectos/editar/:_id' element={<EditarProyecto />} />
                 <Route path='/avances' element={<IndexAvances />} />
                 <Route path='/inscripciones' element={<IndexInscripciones />} />

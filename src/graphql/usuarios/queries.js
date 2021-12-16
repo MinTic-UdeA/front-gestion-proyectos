@@ -16,15 +16,15 @@ const GET_USUARIOS = gql`
 `
 const GET_USUARIO = gql`
     query Usuario($_id : String!) {
-  Usuario(_id: $_id ) {
-    _id
-    nombre
-    apellido
-    identificacion
-    rol
-    correo
-    estado
-  }
+    Usuario(_id: $_id ) {
+      _id
+      nombre
+      apellido
+      identificacion
+      rol
+      correo
+      estado
+    }
 }  
 `
 export { GET_USUARIOS, GET_USUARIO }
