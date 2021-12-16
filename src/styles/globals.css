@@ -18,3 +18,7 @@
 .mini-input {
   @apply w-32 text-white py-2 px-2 rounded-xl ;
 }
+
+.mini-input2 {
+  @apply w-20 text-white py-2 mx-2 px-2 rounded-xl ;
+}

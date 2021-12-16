@@ -3,6 +3,7 @@ import { useUser } from 'context/userContext';
 import { useQuery, useMutation } from '@apollo/client';
 import { GET_INSCRIPCIONES } from 'graphql/inscripciones/queries';
 import { APROBAR_INSCRIPCION } from 'graphql/inscripciones/mutations';
+import { RECHAZAR_INSCRIPCION } from 'graphql/inscripciones/mutations';
 import PrivateRoute from 'components/PrivateRoute';
 import { Link } from 'react-router-dom';
 import { Enum_EstadoInscripcion } from 'utils/enums';
@@ -49,7 +50,7 @@ const IndexInscripciones = () => {
 
                                         <td className="text-center">
                                             {i.estado === "PENDIENTE" ? (<AprobarInscripcion inscripcion={i._id} refetch={refetch}></AprobarInscripcion >) : (<></>)}
-                                         
+                                            {i.estado === "PENDIENTE" ? (<RechazarInscripcion inscripcion={i._id} refetch={refetch}></RechazarInscripcion >) : (<></>)}
                                         </td>
                                     </tr>
                                 );
@@ -77,10 +78,30 @@ const AprobarInscripcion = ({ inscripcion, refetch }) => {
     };
 
     return (
-        <button className="mini-input bg-green-500 hover:bg-green-600" onClick={() => { aprobarInscripcionBoton(); }}>
+        <button className="mini-input2 bg-blue-500 hover:bg-blue-600" onClick={() => { aprobarInscripcionBoton(); }}>
             ACEPTAR
         </button>
     )
+}
+
+const RechazarInscripcion = ({ inscripcion, refetch }) => {
+
+    const [rechazarInscripcion, { data: mutationData, error: mutationError, loading: mutationLoading }] = useMutation(RECHAZAR_INSCRIPCION)
+
+    useEffect(() => {
+        refetch()
+    }, [mutationData]);
+
+    const rechazarInscripcionBoton = () => {
+        rechazarInscripcion({ variables: { _id: inscripcion } });
+    }
+
+    return (
+        <button className="mini-input2 bg-gray-500 hover:bg-red-600" onClick={() => { rechazarInscripcionBoton(); }}>
+            RECHAZAR
+        </button>
+    )
+
 }
 
 export default IndexInscripciones

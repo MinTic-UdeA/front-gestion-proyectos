@@ -9,6 +9,9 @@ const GET_INSCRIPCIONES = gql`query Query($lider: String!) {
     proyecto {
       _id
       nombre
+      lider {
+        _id
+      }
     }
     estudiante {
       _id

@@ -8,12 +8,17 @@ mutation CrearInscripcion($proyecto: String!, $estudiante: String!) {
 }
 `
 const APROBAR_INSCRIPCION = gql`
-mutation AprobarInscripcion($_id: String!, $estado: Enum_EstadoInscripcion, $fechaInicio: String) {
-  aprobarInscripcion(_id: $_id, estado: $estado, fechaInicio: $fechaInicio) {
+mutation AprobarInscripcion($_id: String!) {
+  aprobarInscripcion(_id: $_id) {
     _id
-    fechaIngreso
-    estado
   }
 }
 `
-export { CREAR_INSCRIPCION, APROBAR_INSCRIPCION }
+const RECHAZAR_INSCRIPCION = gql`
+mutation RechazarInscripcion($_id: String!) {
+  rechazarInscripcion(_id: $_id) {
+    _id
+  }
+}
+`
+export { CREAR_INSCRIPCION, APROBAR_INSCRIPCION, RECHAZAR_INSCRIPCION }
