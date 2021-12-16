@@ -1,19 +1,22 @@
 import React, { useEffect } from 'react'
 import { useQuery, useMutation } from '@apollo/client';
 import { toast } from 'react-toastify';
-import { Link } from 'react-router-dom';
 import { Enum_EstadoProyecto, Enum_FaseProyecto } from 'utils/enums';
 import PrivateRoute from 'components/PrivateRoute';
 import PrivateComponent from 'components/PrivateComponent';
+import { useUser } from 'context/userContext';
 import { GET_PROYECTOS } from 'graphql/proyectos/queries';
-import { APROBAR_PROYECTO } from 'graphql/proyectos/mutations';
+import { INSCRIBIR_PROYECTO } from 'graphql/proyectos/mutations';
 
-const ProyectosAdmin = () => {
+const ProyectosEstudiante = () => {
 
+    const { userData } = useUser();
+    
     const { data, error, loading, refetch } = useQuery(GET_PROYECTOS);
 
     useEffect(() => {
-    }, [data])
+
+    }, [data, refetch])
 
     useEffect(() => {
         if (error) {
@@ -22,12 +25,11 @@ const ProyectosAdmin = () => {
     }, [error])
 
     return (
-        <PrivateRoute roleList={["ADMINISTRADOR"]} >
+        <PrivateRoute roleList={["ESTUDIANTE"]} >
             <div>
                 <div className="flex justify-between">
                     <h1 className="mx-16 my-8 text-3xl text-gray-800">Listado de Proyectos</h1>
                 </div>
-
                 <table className='tabla'>
                     <thead>
                         <tr>
@@ -39,8 +41,7 @@ const ProyectosAdmin = () => {
                             <th>Fecha Fin</th>
                             <th>Estado</th>
                             <th>Fase</th>
-                            <th>Lider</th>
-                            <th>Acción</th>
+                            <th>Inscribirme</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -55,17 +56,14 @@ const ProyectosAdmin = () => {
                                     <td>{p.fechaFin}</td>
                                     <td>{Enum_EstadoProyecto[p.estado]}</td>
                                     <td>{Enum_FaseProyecto[p.fase]}</td>
-                                    <td>{p.lider.correo}</td>
                                     <td className="text-center">
-                                        <PrivateComponent roleList={["ADMINISTRADOR"]}>
-                                            <AprobarProyecto proyecto={p} refetch={refetch} estado={"ACTIVO"} classname={"fas fa-check-circle p-1 text-xl text-gray-400 hover:text-green-600"} />
-                                            <AprobarProyecto proyecto={p} refetch={refetch} estado={"INACTIVO"} classname={"fas fa-times-circle p-1 text-xl text-gray-400 hover:text-red-600"} />
+                                        <PrivateComponent roleList={["ESTUDIANTE"]}>
+                                            <InscribirProyecto proyecto={p} estudiante={userData} refetch={refetch} classname={"fas fa-sign-in-alt p-1 text-xl text-gray-400 hover:text-green-600"} />
                                         </PrivateComponent>
                                     </td>
                                 </tr>
                             );
                         }
-
                         )}
                     </tbody>
                 </table>
@@ -74,9 +72,9 @@ const ProyectosAdmin = () => {
     )
 }
 
-const AprobarProyecto = ({ proyecto, refetch, estado, classname }) => {
+const InscribirProyecto = ({ proyecto, estudiante, refetch, classname }) => {
 
-    const [cambiarEstadoProyecto, { data: mutationData, error: mutationError, loading: mutationLoading }] = useMutation(APROBAR_PROYECTO)
+    const [inscribirProyecto, { data: mutationData, error: mutationError, loading: mutationLoading }] = useMutation(INSCRIBIR_PROYECTO)
 
     useEffect(() => {
         if (mutationData) {
@@ -84,25 +82,13 @@ const AprobarProyecto = ({ proyecto, refetch, estado, classname }) => {
         }
     }, [mutationData, refetch]);
 
-    const cambiarEstado = () => {
-        cambiarEstadoProyecto({ variables: { _id: proyecto._id, estado: estado } });
+    const inscribirse = () => {
+        inscribirProyecto({ variables: { proyecto: proyecto._id, estudiante: estudiante._id } });
     };
     return (
-        <button onClick={() => { cambiarEstado(); }}>
+        <button onClick={() => { inscribirse(); }}>
             <i className={classname} />
         </button>
     );
 }
-
-const DesactivarProyecto = () => {
-
-}
-
-const TerminarProyecto = () => {
-
-}
-
-
-export default ProyectosAdmin
-
-
+export default ProyectosEstudiante

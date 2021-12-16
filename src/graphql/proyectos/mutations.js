@@ -11,7 +11,6 @@ mutation CrearProyecto($nombre: String!, $presupuesto: Float!, $lider: String!, 
   }
 }  
 `
-
 const EDITAR_PROYECTO = gql`
 mutation Mutation($_id: String!, $nombre: String!, $objGeneral: String!, $objEspecificos: String!, $presupuesto: Float!) {
   editarProyecto(_id: $_id, nombre: $nombre, objGeneral: $objGeneral, objEspecificos: $objEspecificos, presupuesto: $presupuesto) {
@@ -26,7 +25,6 @@ mutation Mutation($_id: String!, $nombre: String!, $objGeneral: String!, $objEsp
   }
 }
 `
-
 const APROBAR_PROYECTO = gql`
   mutation AprobarProyecto($_id: String!, $estado: Enum_EstadoProyecto, $fase: Enum_FaseProyecto) {
   aprobarProyecto(_id: $_id, estado: $estado, fase: $fase) {
@@ -42,7 +40,14 @@ const APROBAR_PROYECTO = gql`
   }
 }
 `
+const INSCRIBIR_PROYECTO = gql`
+  mutation CrearInscripcion($proyecto: String!, $estudiante: String!) {
+  crearInscripcion(proyecto: $proyecto, estudiante: $estudiante) {
+    _id
+    estado
+  }
+}
+`
 
-
-export { CREAR_PROYECTO, EDITAR_PROYECTO, APROBAR_PROYECTO }
+export { CREAR_PROYECTO, EDITAR_PROYECTO, APROBAR_PROYECTO, INSCRIBIR_PROYECTO }
 
