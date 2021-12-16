@@ -12,16 +12,16 @@ import { REACTIVAR_PROYECTO } from 'graphql/proyectos/mutations';
 
 const ProyectosAdmin = () => {
 
-    const { data, error, loading, refetch } = useQuery(GET_PROYECTOS);
+    const { data: queryData, error: queryError, loading: queryLoading, refetch } = useQuery(GET_PROYECTOS);
 
     useEffect(() => {
-    }, [data])
+    }, [queryData])
 
     useEffect(() => {
-        if (error) {
+        if (queryError) {
             toast.error("Error consultando los proyectos")
         }
-    }, [error])
+    }, [queryError])
 
     return (
         <PrivateRoute roleList={["ADMINISTRADOR"]} >
@@ -46,7 +46,7 @@ const ProyectosAdmin = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {data && data.Proyectos.map((p) => {
+                        {queryData && queryData.Proyectos.map((p) => {
                             return (
                                 <tr key={p._id}>
                                     <td>{p.nombre}</td>
@@ -87,7 +87,7 @@ const AprobarProyecto = ({ proyecto, refetch }) => {
     }, [mutationData]);
 
     const aprobarProyectoBoton = () => {
-        aprobarProyecto({ variables: { _id: proyecto, ...proyecto } });
+        aprobarProyecto({ variables: { _id: proyecto } });
     };
 
     return (

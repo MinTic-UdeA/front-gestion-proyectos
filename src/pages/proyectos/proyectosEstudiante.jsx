@@ -1,36 +1,51 @@
-import React, { useEffect } from 'react'
-import { useQuery } from '@apollo/client'
+import React, { useEffect, useState } from 'react'
+import { useQuery, useMutation } from '@apollo/client'
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import { Enum_EstadoProyecto, Enum_FaseProyecto } from 'utils/enums';
 import { useUser } from 'context/userContext';
 import { GET_PROYECTOS } from 'graphql/proyectos/queries';
 import PrivateRoute from 'components/PrivateRoute';
+import { CREAR_INSCRIPCION } from 'graphql/inscripciones/mutations';
 
 
 // QUERY: GET PROYECTOS, TODOS LOS QUE ESTÉN ACTIVOS
-
-// MUTACIONES: 
+// MUTACIONES: GENERAR INSCRIPCIÓN
 
 
 const ProyectosEstudiante = () => {
 
-    const { data, error, loading, refetch } = useQuery(GET_PROYECTOS);
-    useEffect(() => {
-    }, [data])
+    const { userData } = useUser()
+
+    const { data: queryData, error: queryError, loading: queryLoading } = useQuery(GET_PROYECTOS);
 
     useEffect(() => {
-        if (error) {
+    }, [queryData])
+
+    useEffect(() => {
+        if (queryError) {
             toast.error("Error consultando los proyectos")
         }
-    }, [error])
+    }, [queryError])
 
+    const [crearInscripcion, { data: mutationData, error: mutationError, loading: mutationLoading }] = useMutation(CREAR_INSCRIPCION)
+
+    const crearInscripcionEstudiante = (p) => {
+
+        crearInscripcion({ variables: { proyecto: p._id, estudiante: userData._id } })
+        toast.success("Inscripción realizada con éxito");
+
+    };
+
+    useEffect(() => {
+
+    }, [mutationData]);
 
     return (
         <PrivateRoute roleList={["ESTUDIANTE"]} >
             <div>
                 <div className="flex justify-between">
-                    <h1 className="mx-16 my-8 text-3xl text-gray-800">Listado de Proyectos</h1>
+                    <h1 className="mx-16 my-8 text-3xl text-gray-800">Listado de proyectos activos</h1>
                 </div>
 
                 <table className='tabla'>
@@ -39,17 +54,16 @@ const ProyectosEstudiante = () => {
                             <th>Nombre</th>
                             <th>Obj. General</th>
                             <th>Obj. Especificos</th>
-                            <th>Presupuesto</th>
+                            <th>Ppto.</th>
                             <th>Fecha Inicio</th>
                             <th>Fecha Fin</th>
-                            <th>Estado</th>
                             <th>Fase</th>
                             <th>Lider</th>
                             <th>Acción</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {data && data.Proyectos.map((p) => {
+                        {queryData && queryData.Proyectos.map((p) => {
                             return (
                                 <tr key={p._id}>
                                     <td>{p.nombre}</td>
@@ -58,16 +72,15 @@ const ProyectosEstudiante = () => {
                                     <td>{p.presupuesto}</td>
                                     <td className="w-28">{p.fechaInicio}</td>
                                     <td className="w-28">{p.fechaFin}</td>
-                                    <td>{Enum_EstadoProyecto[p.estado]}</td>
                                     <td>{Enum_FaseProyecto[p.fase]}
                                         {/* {p.estado === "ACTIVO" && p.fase === "DESARROLLO" ? (<TerminarProyecto proyecto={p._id} refetch={refetch}></TerminarProyecto>) : (<></>)} */}
                                     </td>
                                     <td>{p.lider.correo}</td>
                                     <td className="text-center">
-                                        {/* {p.estado === "INACTIVO" && p.fase === "NULO" ? (<AprobarProyecto proyecto={p._id} refetch={refetch}></AprobarProyecto >) : (<></>)}
-                                        {(p.estado === "ACTIVO") && (p.fase === "DESARROLLO" || p.fase === "INICIADO") ? (<DesactivarProyecto proyecto={p._id} refetch={refetch}></DesactivarProyecto>) : (<></>)}
+                                        <button className="mini-input bg-green-500 hover:bg-green-600" onClick={() => { crearInscripcionEstudiante(p) }}>
+                                            Inscribirse
+                                        </button>
 
-                                        {(p.estado === "INACTIVO") && (p.fase === "DESARROLLO" || p.fase === "INICIADO") ? (<ReactivarProyecto proyecto={p._id} refetch={refetch}></ReactivarProyecto>) : (<></>)} */}
                                     </td>
                                 </tr>
                             );

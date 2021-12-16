@@ -11,19 +11,17 @@ const ProyectosLider = () => {
 
     const { userData } = useUser();
 
-    const { data, error, loading, refetch } = useQuery(PROYECTOS_BY_LIDER, { variables: { _id: userData._id } });
-    console.log(data)
+    const { data: queryData, error: queryError, loading: queryLoading, refetch } = useQuery(PROYECTOS_BY_LIDER, { variables: { _id: userData._id }});
+    
     useEffect(() => {
         refetch()
-    }, [data])
-
-    // console.log(data.ListarProyectosByLider)
+    }, [queryData])
 
     useEffect(() => {
-        if (error) {
+        if (queryError) {
             toast.error("Error consultando los proyectos")
         }
-    }, [error])
+    }, [queryError])
 
     return (
         <PrivateRoute roleList={["LIDER"]} >
@@ -49,7 +47,7 @@ const ProyectosLider = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {data && data.listarProyectosByLider.map((p) => {
+                        {queryData && queryData.listarProyectosByLider.map((p) => {
                             return (
                                 <tr key={p._id}>
                                     <td>{p.nombre}</td>

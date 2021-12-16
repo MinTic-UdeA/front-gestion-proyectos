@@ -11,18 +11,18 @@ import PrivateComponent from 'components/PrivateComponent';
 
 const IndexUsuarios = () => {
 
-    const { data, error, loading, refetch } = useQuery(GET_USUARIOS);
+    const {  data: queryData, error: queryError, loading: queryLoading, refetch } = useQuery(GET_USUARIOS);
 
     useEffect(() => {
-    }, [data])
+    }, [queryData])
 
     useEffect(() => {
-        if (error) {
+        if (queryError) {
             toast.error("Error consultando los usuarios")
         }
-    }, [error])
+    }, [queryError])
 
-    if (loading) return <div className="m-4">Cargando....</div>;
+    if (queryLoading) return <div className="m-4">Cargando....</div>;
 
     return (
         <PrivateRoute roleList={["LIDER", "ADMINISTRADOR"]} >
@@ -41,7 +41,7 @@ const IndexUsuarios = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {data && data.Usuarios.map((u) => {
+                        {queryData && queryData.Usuarios.map((u) => {
                             return (
                                 <tr key={u._id}>
                                     <td>{u.nombre}</td>

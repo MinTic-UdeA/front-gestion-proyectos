@@ -22,4 +22,10 @@ const Enum_Rol = {
     NULO: ""
   };
 
-  export { Enum_Rol, Enum_EstadoUsuario, Enum_EstadoProyecto, Enum_FaseProyecto };
+  const Enum_EstadoInscripcion = {
+    ACEPTADA: 'Aceptada',
+    RECHAZADA: 'Rechazada',
+    PENDIENTE: 'Pendiente'
+  }
+
+  export { Enum_Rol, Enum_EstadoUsuario, Enum_EstadoProyecto, Enum_FaseProyecto, Enum_EstadoInscripcion };
