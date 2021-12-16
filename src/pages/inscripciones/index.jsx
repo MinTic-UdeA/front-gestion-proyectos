@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useUser } from 'context/userContext';
 import { useQuery, useMutation } from '@apollo/client';
 import { GET_INSCRIPCIONES } from 'graphql/inscripciones/queries';
+import { APROBAR_INSCRIPCION } from 'graphql/inscripciones/mutations';
 import PrivateRoute from 'components/PrivateRoute';
 import { Link } from 'react-router-dom';
 import { Enum_EstadoInscripcion } from 'utils/enums';
@@ -37,7 +38,7 @@ const IndexInscripciones = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {queryData && queryData.listarInscripciones.map((i) => {     
+                            {queryData && queryData.listarInscripciones.map((i) => {
                                 return (
                                     <tr key={i._id}>
                                         <td>{i.proyecto.nombre}</td>
@@ -45,9 +46,10 @@ const IndexInscripciones = () => {
                                         <td>{i.fechaIngreso}</td>
                                         <td>{i.fechaEgreso}</td>
                                         <td>{Enum_EstadoInscripcion[i.estado]}</td>
-                                        <td>
 
-
+                                        <td className="text-center">
+                                            {i.estado === "PENDIENTE" ? (<AprobarInscripcion inscripcion={i._id} refetch={refetch}></AprobarInscripcion >) : (<></>)}
+                                         
                                         </td>
                                     </tr>
                                 );
@@ -70,8 +72,8 @@ const AprobarInscripcion = ({ inscripcion, refetch }) => {
         refetch()
     }, [mutationData]);
 
-    const aprobarInscripcion = () => {
-        aprobarProyecto({ variables: {  } });
+    const aprobarInscripcionBoton = () => {
+        aprobarInscripcion({ variables: { _id: inscripcion } });
     };
 
     return (
