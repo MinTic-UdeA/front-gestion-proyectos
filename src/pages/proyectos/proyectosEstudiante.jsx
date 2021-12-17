@@ -93,23 +93,4 @@ const ProyectosEstudiante = () => {
     )
 }
 
-const InscribirProyecto = ({ proyecto, estudiante, refetch, classname }) => {
-
-    const [inscribirProyecto, { data: mutationData, error: mutationError, loading: mutationLoading }] = useMutation(INSCRIBIR_PROYECTO)
-
-    useEffect(() => {
-        if (mutationData) {
-            refetch();
-        }
-    }, [mutationData, refetch]);
-
-    const inscribirse = () => {
-        inscribirProyecto({ variables: { proyecto: proyecto._id, estudiante: estudiante._id } });
-    };
-    return (
-        <button onClick={() => { inscribirse(); }}>
-            <i className={classname} />
-        </button>
-    );
-}
 export default ProyectosEstudiante
