@@ -10,18 +10,18 @@ import { useUser } from 'context/userContext';
 const ProyectosLider = () => {
 
     const { userData } = useUser();
-    
-    const { data, error, loading, refetch } = useQuery(PROYECTOS_BY_LIDER, { variables: {lider: userData._id, estado: "ACTIVO"} });
 
+    const { data: queryData, error: queryError, loading: queryLoading, refetch } = useQuery(PROYECTOS_BY_LIDER, { variables: { _id: userData._id }});
+    
     useEffect(() => {
         refetch()
-    }, [data, refetch])
+    }, [queryData, refetch])
 
     useEffect(() => {
-        if (error) {
+        if (queryError) {
             toast.error("Error consultando los proyectos")
         }
-    }, [error])
+    }, [queryError])
 
     return (
         <PrivateRoute roleList={["LIDER"]} >
@@ -47,7 +47,7 @@ const ProyectosLider = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {data && data.listarProyectosByLider.map((p) => {
+                        {queryData && queryData.listarProyectosByLider.map((p) => {
                             return (
                                 <tr key={p._id}>
                                     <td>{p.nombre}</td>
@@ -59,9 +59,10 @@ const ProyectosLider = () => {
                                     <td>{Enum_EstadoProyecto[p.estado]}</td>
                                     <td>{Enum_FaseProyecto[p.fase]}</td>
                                     <td className="text-center">
+                                        {p.estado === "ACTIVO" ? (
                                         <Link to={`/proyectos/editar/${p._id}`}>
                                             <i className='fas fa-pen text-gray-400 hover:text-gray-600 cursor-pointer' />
-                                        </Link>
+                                        </Link>) : (<div></div>)}
                                     </td>
                                 </tr>
                             );

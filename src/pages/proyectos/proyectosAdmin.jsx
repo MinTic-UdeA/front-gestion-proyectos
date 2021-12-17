@@ -1,25 +1,28 @@
 import React, { useEffect } from 'react'
-import { useQuery, useMutation } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client'
 import { toast } from 'react-toastify';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { Enum_EstadoProyecto, Enum_FaseProyecto } from 'utils/enums';
 import PrivateRoute from 'components/PrivateRoute';
 import PrivateComponent from 'components/PrivateComponent';
 import { GET_PROYECTOS } from 'graphql/proyectos/queries';
 import { APROBAR_PROYECTO } from 'graphql/proyectos/mutations';
+import { DESACTIVAR_PROYECTO } from 'graphql/proyectos/mutations';
+import { TERMINAR_PROYECTO } from 'graphql/proyectos/mutations';
+import { REACTIVAR_PROYECTO } from 'graphql/proyectos/mutations';
 
 const ProyectosAdmin = () => {
 
-    const { data, error, loading, refetch } = useQuery(GET_PROYECTOS);
+    const { data: queryData, error: queryError, loading: queryLoading, refetch } = useQuery(GET_PROYECTOS);
 
     useEffect(() => {
-    }, [data])
+    }, [queryData])
 
     useEffect(() => {
-        if (error) {
+        if (queryError) {
             toast.error("Error consultando los proyectos")
         }
-    }, [error])
+    }, [queryError])
 
     return (
         <PrivateRoute roleList={["ADMINISTRADOR"]} >
@@ -44,23 +47,25 @@ const ProyectosAdmin = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {data && data.Proyectos.map((p) => {
+                        {queryData && queryData.Proyectos.map((p) => {
                             return (
                                 <tr key={p._id}>
                                     <td>{p.nombre}</td>
                                     <td>{p.objGeneral}</td>
                                     <td>{p.objEspecificos}</td>
                                     <td>{p.presupuesto}</td>
-                                    <td>{p.fechaInicio}</td>
-                                    <td>{p.fechaFin}</td>
+                                    <td className="w-28">{p.fechaInicio}</td>
+                                    <td className="w-28">{p.fechaFin}</td>
                                     <td>{Enum_EstadoProyecto[p.estado]}</td>
-                                    <td>{Enum_FaseProyecto[p.fase]}</td>
+                                    <td>{Enum_FaseProyecto[p.fase]}
+                                        {p.estado === "ACTIVO" && p.fase === "DESARROLLO" ? (<TerminarProyecto proyecto={p._id} refetch={refetch}></TerminarProyecto>) : (<></>)}
+                                    </td>
                                     <td>{p.lider.correo}</td>
                                     <td className="text-center">
-                                        <PrivateComponent roleList={["ADMINISTRADOR"]}>
-                                            <AprobarProyecto proyecto={p} refetch={refetch} estado={"ACTIVO"} classname={"fas fa-check-circle p-1 text-xl text-gray-400 hover:text-green-600"} />
-                                            <AprobarProyecto proyecto={p} refetch={refetch} estado={"INACTIVO"} classname={"fas fa-times-circle p-1 text-xl text-gray-400 hover:text-red-600"} />
-                                        </PrivateComponent>
+                                        {p.estado === "INACTIVO" && p.fase === "NULO" ? (<AprobarProyecto proyecto={p._id} refetch={refetch}></AprobarProyecto >) : (<></>)}
+                                        {(p.estado === "ACTIVO") && (p.fase === "DESARROLLO" || p.fase === "INICIADO") ? (<DesactivarProyecto proyecto={p._id} refetch={refetch}></DesactivarProyecto>) : (<></>)}
+
+                                        {(p.estado === "INACTIVO") && (p.fase === "DESARROLLO" || p.fase === "INICIADO") ? (<ReactivarProyecto proyecto={p._id} refetch={refetch}></ReactivarProyecto>) : (<></>)}
                                     </td>
                                 </tr>
                             );
@@ -74,35 +79,81 @@ const ProyectosAdmin = () => {
     )
 }
 
-const AprobarProyecto = ({ proyecto, refetch, estado, classname }) => {
+const AprobarProyecto = ({ proyecto, refetch }) => {
 
-    const [cambiarEstadoProyecto, { data: mutationData, error: mutationError, loading: mutationLoading }] = useMutation(APROBAR_PROYECTO)
+    const [aprobarProyecto, { data: mutationData, error: mutationError, loading: mutationLoading }] = useMutation(APROBAR_PROYECTO)
 
     useEffect(() => {
-        if (mutationData) {
-            refetch();
-        }
-    }, [mutationData, refetch]);
+        refetch()
+    }, [mutationData]);
 
-    const cambiarEstado = () => {
-        cambiarEstadoProyecto({ variables: { _id: proyecto._id, estado: estado } });
+    const aprobarProyectoBoton = () => {
+        aprobarProyecto({ variables: { _id: proyecto } });
     };
+
     return (
-        <button onClick={() => { cambiarEstado(); }}>
-            <i className={classname} />
+        <button className="mini-input bg-green-500 hover:bg-green-600" onClick={() => { aprobarProyectoBoton(); }}>
+            APROBAR
         </button>
-    );
+    )
 }
 
-const DesactivarProyecto = () => {
+const DesactivarProyecto = ({ proyecto, refetch }) => {
+    const [desactivarProyecto, { data: mutationData, error: mutationError, loading: mutationLoading }] = useMutation(DESACTIVAR_PROYECTO)
 
+    useEffect(() => {
+        refetch()
+    }, [mutationData]);
+
+    const desactivarProyectoBoton = () => {
+        desactivarProyecto({ variables: { _id: proyecto } });
+    };
+
+    return (
+        <button className="mini-input bg-yellow-400 hover:bg-yellow-500" onClick={() => { desactivarProyectoBoton(); }}>
+            DESACTIVAR
+        </button>
+    )
 }
 
-const TerminarProyecto = () => {
+const TerminarProyecto = ({ proyecto, refetch }) => {
+    const [terminarProyecto, { data: mutationData, error: mutationError, loading: mutationLoading }] = useMutation(TERMINAR_PROYECTO)
 
+    useEffect(() => {
+        refetch()
+    }, [mutationData]);
+
+    const terminarProyectoBoton = () => {
+        terminarProyecto({ variables: { _id: proyecto } });
+    };
+
+    return (
+        <button className="mini-input hover:bg-red-300" onClick={() => { terminarProyectoBoton(); }}>
+            TERMINAR
+        </button>
+    )
 }
 
+
+const ReactivarProyecto = ({ proyecto, refetch }) => {
+    const [reactivarProyecto, { data: mutationData, error: mutationError, loading: mutationLoading }] = useMutation(REACTIVAR_PROYECTO)
+
+    useEffect(() => {
+        refetch()
+        console.log(proyecto)
+    }, [mutationData]);
+
+    const reactivarProyectoBoton = () => {
+        console.log(proyecto)
+        reactivarProyecto({ variables: { _id: proyecto } });
+
+    };
+
+    return (
+        <button className="mini-input bg-gray-500 hover:bg-gray-600" onClick={() => { reactivarProyectoBoton(); }}>
+            REACTIVAR
+        </button>
+    )
+}
 
 export default ProyectosAdmin
-
-

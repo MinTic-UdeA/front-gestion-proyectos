@@ -34,21 +34,26 @@ query Proyecto($_id: String!) {
 `
 
 const PROYECTOS_BY_LIDER = gql`
-query ListarProyectosByLider($lider: String, $estado: Enum_EstadoProyecto) {
-  listarProyectosByLider(lider: $lider, estado: $estado) {
+query ListarProyectosByLider($_id: String) {
+  listarProyectosByLider(_id: $_id) {
     _id
     nombre
     objGeneral
     objEspecificos
     presupuesto
+    fechaInicio
+    fechaFin
     estado
+<<<<<<< HEAD
     fase
     fechaInicio
     fechaFin
+=======
+>>>>>>> 888de566cb50b98040f89a83d131cdbc13dc5426
   }
 }
-#{ AND: [{ rated: "PG-13" }, { runtime_lt: 120 }] }) 
 `
+
 
 export { PROYECTOS_BY_LIDER, GET_PROYECTOS, GET_PROYECTO }
 
