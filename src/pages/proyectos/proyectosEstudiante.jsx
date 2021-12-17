@@ -77,7 +77,7 @@ const ProyectosEstudiante = () => {
                                     </td>
                                     <td>{p.lider.correo}</td>
                                     <td className="text-center">
-                                        <button className="mini-input bg-green-500 hover:bg-green-600" onClick={() => { crearInscripcionEstudiante(p) }}>
+                                        <button className="mini-input bg-blue-500 hover:bg-blue-600" onClick={() => { crearInscripcionEstudiante(p) }}>
                                             Inscribirse
                                         </button>
 
