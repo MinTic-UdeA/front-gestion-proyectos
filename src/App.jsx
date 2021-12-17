@@ -22,7 +22,6 @@ import ProyectosLider from 'pages/proyectos/proyectosLider';
 import ProyectosAdmin from 'pages/proyectos/proyectosAdmin';
 import ProyectosEstudiante from 'pages/proyectos/proyectosEstudiante';
 
-
 // poder agregar funcionalidades como los tokens que vamos a tener que mandar para el backend
 const httpLink = createHttpLink({ uri: "http://localhost:4000/graphql" })
 

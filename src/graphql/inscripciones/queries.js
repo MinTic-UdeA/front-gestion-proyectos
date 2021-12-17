@@ -1,6 +1,7 @@
 import { gql } from "@apollo/client";
 
-const GET_INSCRIPCIONES = gql`query Query($lider: String!) {
+const GET_INSCRIPCIONES = gql`
+query Query($lider: String!) {
   listarInscripciones(lider: $lider) {
     _id
     estado

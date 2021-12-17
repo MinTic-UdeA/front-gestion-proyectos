@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 // import { Link } from 'react-router-dom';
 import { Enum_EstadoProyecto, Enum_FaseProyecto } from 'utils/enums';
 import PrivateRoute from 'components/PrivateRoute';
+import PrivateComponent from 'components/PrivateComponent';
 import { GET_PROYECTOS } from 'graphql/proyectos/queries';
 import { APROBAR_PROYECTO } from 'graphql/proyectos/mutations';
 import { DESACTIVAR_PROYECTO } from 'graphql/proyectos/mutations';

@@ -45,7 +45,7 @@ const ProyectosEstudiante = () => {
         <PrivateRoute roleList={["ESTUDIANTE"]} >
             <div>
                 <div className="flex justify-between">
-                    <h1 className="mx-16 my-8 text-3xl text-gray-800">Listado de proyectos activos</h1>
+                    <h1 className="mx-16 my-8 text-3xl text-gray-800">Listado de Proyectos activos</h1>
                 </div>
 
                 <table className='tabla'>
@@ -85,7 +85,6 @@ const ProyectosEstudiante = () => {
                                 </tr>
                             );
                         }
-
                         )}
                     </tbody>
                 </table>

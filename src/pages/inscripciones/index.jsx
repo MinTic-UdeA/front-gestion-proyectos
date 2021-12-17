@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { toast } from 'react-toastify';
 import { useUser } from 'context/userContext';
 import { useQuery, useMutation } from '@apollo/client';
 import { GET_INSCRIPCIONES } from 'graphql/inscripciones/queries';
@@ -14,6 +15,12 @@ const IndexInscripciones = () => {
 
     useEffect(() => {
     }, [queryData])
+
+    useEffect(() => {
+        if (queryError) {
+            toast.error("Error consultando las inscripciones")
+        }
+    }, [queryError])
 
     return (
         <div>

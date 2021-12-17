@@ -44,6 +44,12 @@ query ListarProyectosByLider($_id: String) {
     fechaInicio
     fechaFin
     estado
+<<<<<<< HEAD
+    fase
+    fechaInicio
+    fechaFin
+=======
+>>>>>>> 888de566cb50b98040f89a83d131cdbc13dc5426
   }
 }
 `
