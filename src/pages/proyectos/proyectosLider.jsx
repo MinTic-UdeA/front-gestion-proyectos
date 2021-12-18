@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { PROYECTOS_BY_LIDER } from 'graphql/proyectos/queries';
+import { GET_PROYECTOS } from 'graphql/proyectos/queries';
 import { useQuery } from '@apollo/client'
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
@@ -11,7 +11,7 @@ const ProyectosLider = () => {
 
     const { userData } = useUser();
 
-    const { data: queryData, error: queryError, loading: queryLoading, refetch } = useQuery(PROYECTOS_BY_LIDER, { variables: { lider: userData._id }});
+    const { data: queryData, error: queryError, loading: queryLoading, refetch } = useQuery(GET_PROYECTOS);
     
     useEffect(() => {
         refetch()
@@ -47,7 +47,7 @@ const ProyectosLider = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {queryData && queryData.listarProyectosByLider.map((p) => {
+                        {queryData && queryData.Proyectos.map((p) => {
                             return (
                                 <tr key={p._id}>
                                     <td>{p.nombre}</td>

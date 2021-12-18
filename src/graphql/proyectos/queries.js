@@ -33,15 +33,6 @@ query Proyecto($_id: String!) {
 }
 `
 
-const PROYECTOS_BY_LIDER = gql`
-query ListarProyectosByLider($lider: String!, $estado: Enum_EstadoProyecto) {
-  listarProyectosByLider(lider: $lider, estado: $estado) {
-    _id
-  }
-}
-`
-
-
-export { PROYECTOS_BY_LIDER, GET_PROYECTOS, GET_PROYECTO }
+export { GET_PROYECTOS, GET_PROYECTO }
 
 
