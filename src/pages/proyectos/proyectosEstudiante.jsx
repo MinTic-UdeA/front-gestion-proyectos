@@ -8,11 +8,6 @@ import { GET_PROYECTOS } from 'graphql/proyectos/queries';
 import PrivateRoute from 'components/PrivateRoute';
 import { CREAR_INSCRIPCION } from 'graphql/inscripciones/mutations';
 
-
-// QUERY: GET PROYECTOS, TODOS LOS QUE ESTÉN ACTIVOS
-// MUTACIONES: GENERAR INSCRIPCIÓN
-
-
 const ProyectosEstudiante = () => {
 
     const { userData } = useUser()

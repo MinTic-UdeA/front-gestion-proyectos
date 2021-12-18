@@ -11,7 +11,7 @@ const ProyectosLider = () => {
 
     const { userData } = useUser();
 
-    const { data: queryData, error: queryError, loading: queryLoading, refetch } = useQuery(PROYECTOS_BY_LIDER, { variables: { _id: userData._id }});
+    const { data: queryData, error: queryError, loading: queryLoading, refetch } = useQuery(PROYECTOS_BY_LIDER, { variables: { lider: userData._id }});
     
     useEffect(() => {
         refetch()
@@ -29,7 +29,7 @@ const ProyectosLider = () => {
                 <div className="flex justify-between">
                     <h1 className="mx-16 my-8 text-3xl text-gray-800">Listado de Proyectos</h1>
                     <Link to="/proyectoslider/nuevo">
-                        <div className="w-40 my-8 p-1 mx-16 bg-indigo-700 text-white text-center text-lg rounded-xl hover:bg-indigo-500 shadow-md disabled:opacity-50 disabled:bg-gray-700 cursor-pointer">Nuevo Proyecto</div>
+                        <div className="w-40 my-8 p-1 mx-16 bg-blue-600 text-white text-center text-lg rounded-xl hover:bg-blue-500 shadow-md disabled:opacity-50 disabled:bg-gray-700 cursor-pointer">Nuevo Proyecto</div>
                     </Link>
                 </div>
                 <table className='tabla'>

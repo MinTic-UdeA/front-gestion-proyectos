@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client';
 import { GET_PROYECTO } from 'graphql/proyectos/queries';
 import { EDITAR_PROYECTO } from 'graphql/proyectos/mutations';
@@ -8,6 +7,8 @@ import ButtonLoading from 'components/ButtonLoading';
 import useFormData from 'hooks/useFormData';
 import { toast } from 'react-toastify';
 import PrivateComponent from 'components/PrivateComponent';
+import { useParams } from 'react-router';
+import { Link } from 'react-router-dom';
 
 const EditarProyecto = () => {
 
@@ -21,6 +22,7 @@ const EditarProyecto = () => {
     }, [queryData])
 
     if (queryLoading) return <div>Cargando....</div>;
+    
     return (
         <>
             <PrivateComponent roleList={["LIDER"]}>

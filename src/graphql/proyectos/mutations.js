@@ -41,9 +41,6 @@ const INSCRIBIR_PROYECTO = gql`
 }
 `
 
-<<<<<<< HEAD
-export { CREAR_PROYECTO, EDITAR_PROYECTO, APROBAR_PROYECTO, INSCRIBIR_PROYECTO }
-=======
 const DESACTIVAR_PROYECTO = gql`
 mutation DesactivarProyecto($_id: String!, $estado: Enum_EstadoProyecto, $fechaFin: String) {
   desactivarProyecto(_id: $_id, estado: $estado, fechaFin: $fechaFin) {
@@ -67,5 +64,4 @@ mutation ReactivarProyecto($_id: String!, $estado: Enum_EstadoProyecto, $fechaIn
 }
 `
 export { CREAR_PROYECTO, EDITAR_PROYECTO, APROBAR_PROYECTO, DESACTIVAR_PROYECTO, TERMINAR_PROYECTO, REACTIVAR_PROYECTO }
->>>>>>> 888de566cb50b98040f89a83d131cdbc13dc5426
 

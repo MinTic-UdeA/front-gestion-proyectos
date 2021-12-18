@@ -10,8 +10,9 @@ import { Link } from 'react-router-dom';
 import { Enum_EstadoInscripcion } from 'utils/enums';
 
 const IndexInscripciones = () => {
+    const { userData } = useUser()
 
-    const { data: queryData, error: queryError, loading: queryLoading, refetch } = useQuery(GET_INSCRIPCIONES);
+    const { data: queryData, error: queryError, loading: queryLoading, refetch } = useQuery(GET_INSCRIPCIONES, { variables : { lider: userData._id }});
 
     useEffect(() => {
     }, [queryData])
