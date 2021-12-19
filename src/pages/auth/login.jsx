@@ -1,13 +1,10 @@
 import React, { useEffect } from 'react';
 import Input from 'components/Input';
-/* import { Enum_Rol } from 'utils/enums';
-import DropDown from 'components/Dropdown'; */
 import ButtonLoading from 'components/ButtonLoading';
 import { Link } from 'react-router-dom';
 import useFormData from 'hooks/useFormData';
 import { useMutation } from '@apollo/client';
 import { LOGIN } from 'graphql/auth/mutations';
-// import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router';
 import { useAuth } from 'context/authContext';
 
@@ -18,11 +15,10 @@ const Login = () => {
     const { setToken } = useAuth()
     const navigate = useNavigate()
     const { form, formData, updateFormData } = useFormData();
-    const [login, { data: mutationData, loading: mutationLoading, error: mutationError }] = useMutation(LOGIN)
+    const [login, { data: mutationData, loading: mutationLoading }] = useMutation(LOGIN)
 
     const submitForm = (e) => {
         e.preventDefault();
-        console.log("soy un submit form");
         login({ variables: formData })
     };
 
@@ -35,6 +31,7 @@ const Login = () => {
         }
     }, [mutationData, navigate, setToken])
 
+    if (mutationLoading) return <div className="mx-16 my-8 text-3xl text-gray-800"> ... Cargando la página </div>
 
     return (
         <div className='flex flex-col h-full w-full items-center justify-center bg-blue-100'>

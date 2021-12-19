@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { CREAR_PROYECTO } from 'graphql/proyectos/mutations'
 import { GET_USUARIO } from 'graphql/usuarios/queries';
 import { useQuery, useMutation } from '@apollo/client'
@@ -28,6 +28,12 @@ const NuevoProyecto = () => {
     // useEffect(() => {
     // }, [queryData]);
 
+    useEffect(() => {
+        if (queryError) {
+            toast.error('No se encontró el usuario');
+        }
+    }, [queryError]);
+
     const submitForm = (e) => {
         e.preventDefault();
         formData.presupuesto = parseFloat(formData.presupuesto);
@@ -46,7 +52,8 @@ const NuevoProyecto = () => {
         }
     }, [mutationError]);
 
-    if (mutationLoading) return <div>...Loading</div>;
+    if (mutationLoading) return <div className="mx-16 my-8 text-3xl text-gray-800"> Cargando la información... </div>;
+    if (queryLoading) return <div className="mx-16 my-8 text-3xl text-gray-800"> Cargando la información... </div>;
 
     // if (queryData)
     return (

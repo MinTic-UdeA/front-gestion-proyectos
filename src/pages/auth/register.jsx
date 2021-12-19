@@ -8,7 +8,7 @@ import useFormData from 'hooks/useFormData';
 import { REGISTRAR } from 'graphql/auth/mutations';
 import { toast } from 'react-toastify'
 import { useMutation } from '@apollo/client';
-import { useNavigate } from 'react-router';
+// import { useNavigate } from 'react-router';
 import { useAuth } from 'context/authContext';
 
 const Register = () => {

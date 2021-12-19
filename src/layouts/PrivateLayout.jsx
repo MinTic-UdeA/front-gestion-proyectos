@@ -13,12 +13,12 @@ const PrivateLayout = () => {
   const navigate = useNavigate()
 
   // revisar si tengo un token en el local storage
-  const { setToken, authToken, } = useAuth();
+  const { setToken } = useAuth();
 
   const [loadingAuth, setLoadingAuth] = useState(true);
 
   // mutación de validar token -> crear en el back el resolver para validar el token
-  const [refreshToken, { data: mutationData, loading: loadingMutation, error: errorMutation }] = useMutation(REFRESH_TOKEN)
+  const [refreshToken, { data: mutationData, loading: loadingMutation }] = useMutation(REFRESH_TOKEN)
 
   useEffect(() => {
     refreshToken()
@@ -36,7 +36,7 @@ const PrivateLayout = () => {
     }
   }, [mutationData, setToken, loadingAuth, navigate]);
 
-  if (loadingMutation || loadingAuth) return <div> ... Loading</div>
+  if (loadingMutation || loadingAuth) return <div className="mx-16 my-8 text-3xl text-gray-800"> ... Cargando la página </div>
 
   return (
     <div className='flex flex-col md:flex-row flex-no-wrap h-screen bg-gray-50'>

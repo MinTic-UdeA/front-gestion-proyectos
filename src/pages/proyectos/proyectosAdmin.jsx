@@ -1,10 +1,8 @@
 import React, { useEffect } from 'react'
 import { useQuery, useMutation } from '@apollo/client'
 import { toast } from 'react-toastify';
-// import { Link } from 'react-router-dom';
 import { Enum_EstadoProyecto, Enum_FaseProyecto } from 'utils/enums';
 import PrivateRoute from 'components/PrivateRoute';
-import PrivateComponent from 'components/PrivateComponent';
 import { GET_PROYECTOS } from 'graphql/proyectos/queries';
 import { APROBAR_PROYECTO } from 'graphql/proyectos/mutations';
 import { DESACTIVAR_PROYECTO } from 'graphql/proyectos/mutations';
@@ -23,6 +21,8 @@ const ProyectosAdmin = () => {
             toast.error("Error consultando los proyectos")
         }
     }, [queryError])
+
+    if (queryLoading) return <div className="mx-16 my-8 text-3xl text-gray-800"> Cargando la información... </div>;
 
     return (
         <PrivateRoute roleList={["ADMINISTRADOR"]} >
@@ -81,11 +81,17 @@ const ProyectosAdmin = () => {
 
 const AprobarProyecto = ({ proyecto, refetch }) => {
 
-    const [aprobarProyecto, { data: mutationData, error: mutationError, loading: mutationLoading }] = useMutation(APROBAR_PROYECTO)
+    const [aprobarProyecto, { data: mutationData, error: mutationError }] = useMutation(APROBAR_PROYECTO)
 
     useEffect(() => {
         refetch()
-    }, [mutationData]);
+    }, [mutationData, refetch]);
+
+    useEffect(() => {
+        if (mutationError) {
+            toast.error("Error aprobando el proyecto")
+        }
+    }, [mutationError])
 
     const aprobarProyectoBoton = () => {
         aprobarProyecto({ variables: { _id: proyecto } });
@@ -99,11 +105,17 @@ const AprobarProyecto = ({ proyecto, refetch }) => {
 }
 
 const DesactivarProyecto = ({ proyecto, refetch }) => {
-    const [desactivarProyecto, { data: mutationData, error: mutationError, loading: mutationLoading }] = useMutation(DESACTIVAR_PROYECTO)
+    const [desactivarProyecto, { data: mutationData, error: mutationError }] = useMutation(DESACTIVAR_PROYECTO)
 
     useEffect(() => {
         refetch()
-    }, [mutationData]);
+    }, [mutationData, refetch]);
+
+    useEffect(() => {
+        if (mutationError) {
+            toast.error("Error desactivando el proyecto")
+        }
+    }, [mutationError]);
 
     const desactivarProyectoBoton = () => {
         desactivarProyecto({ variables: { _id: proyecto } });
@@ -117,11 +129,18 @@ const DesactivarProyecto = ({ proyecto, refetch }) => {
 }
 
 const TerminarProyecto = ({ proyecto, refetch }) => {
-    const [terminarProyecto, { data: mutationData, error: mutationError, loading: mutationLoading }] = useMutation(TERMINAR_PROYECTO)
+    const [terminarProyecto, { data: mutationData, error: mutationError }] = useMutation(TERMINAR_PROYECTO)
 
     useEffect(() => {
         refetch()
-    }, [mutationData]);
+    }, [mutationData, refetch]);
+
+    useEffect(() => {
+        if (mutationError) {
+            toast.error("Error terminando el proyecto")
+        }
+    }, [mutationError]);
+
 
     const terminarProyectoBoton = () => {
         terminarProyecto({ variables: { _id: proyecto } });
@@ -136,12 +155,18 @@ const TerminarProyecto = ({ proyecto, refetch }) => {
 
 
 const ReactivarProyecto = ({ proyecto, refetch }) => {
-    const [reactivarProyecto, { data: mutationData, error: mutationError, loading: mutationLoading }] = useMutation(REACTIVAR_PROYECTO)
+    const [reactivarProyecto, { data: mutationData, error: mutationError }] = useMutation(REACTIVAR_PROYECTO)
 
     useEffect(() => {
         refetch()
-        console.log(proyecto)
-    }, [mutationData]);
+    }, [mutationData, refetch]);
+
+    useEffect(() => {
+        if (mutationError) {
+            toast.error("Error reactivando el proyecto")
+        }
+    }, [mutationError]);
+
 
     const reactivarProyectoBoton = () => {
         console.log(proyecto)

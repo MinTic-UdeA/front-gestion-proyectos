@@ -6,7 +6,6 @@ import { GET_INSCRIPCIONES } from 'graphql/inscripciones/queries';
 import { APROBAR_INSCRIPCION } from 'graphql/inscripciones/mutations';
 import { RECHAZAR_INSCRIPCION } from 'graphql/inscripciones/mutations';
 import PrivateRoute from 'components/PrivateRoute';
-import { Link } from 'react-router-dom';
 import { Enum_EstadoInscripcion } from 'utils/enums';
 
 
@@ -76,11 +75,17 @@ const IndexInscripciones = () => {
 
 const AprobarInscripcion = ({ inscripcion, refetch }) => {
 
-    const [aprobarInscripcion, { data: mutationData, error: mutationError, loading: mutationLoading }] = useMutation(APROBAR_INSCRIPCION)
+    const [aprobarInscripcion, { data: mutationData, error: mutationError }] = useMutation(APROBAR_INSCRIPCION)
 
     useEffect(() => {
         refetch()
-    }, [mutationData]);
+    }, [mutationData, refetch]);
+
+    useEffect(() => {
+        if (mutationError) {
+            toast.error("Error aprobando la inscripción")
+        }
+    }, [mutationError])
 
     const aprobarInscripcionBoton = () => {
         aprobarInscripcion({ variables: { _id: inscripcion } });
@@ -95,11 +100,17 @@ const AprobarInscripcion = ({ inscripcion, refetch }) => {
 
 const RechazarInscripcion = ({ inscripcion, refetch }) => {
 
-    const [rechazarInscripcion, { data: mutationData, error: mutationError, loading: mutationLoading }] = useMutation(RECHAZAR_INSCRIPCION)
+    const [rechazarInscripcion, { data: mutationData, error: mutationError }] = useMutation(RECHAZAR_INSCRIPCION)
 
     useEffect(() => {
         refetch()
-    }, [mutationData]);
+    }, [mutationData, refetch]);
+
+    useEffect(() => {
+        if (mutationError) {
+            toast.error("Error aprobando la inscripción")
+        }
+    }, [mutationError])
 
     const rechazarInscripcionBoton = () => {
         rechazarInscripcion({ variables: { _id: inscripcion } });

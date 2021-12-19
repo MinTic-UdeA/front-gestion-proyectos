@@ -32,15 +32,6 @@ mutation AprobarProyecto($_id: String!, $estado: Enum_EstadoProyecto, $fase: Enu
   }
 }
 `
-const INSCRIBIR_PROYECTO = gql`
-  mutation CrearInscripcion($proyecto: String!, $estudiante: String!) {
-  crearInscripcion(proyecto: $proyecto, estudiante: $estudiante) {
-    _id
-    estado
-  }
-}
-`
-
 const DESACTIVAR_PROYECTO = gql`
 mutation DesactivarProyecto($_id: String!, $estado: Enum_EstadoProyecto, $fechaFin: String) {
   desactivarProyecto(_id: $_id, estado: $estado, fechaFin: $fechaFin) {

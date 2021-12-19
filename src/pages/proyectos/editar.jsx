@@ -18,8 +18,13 @@ const EditarProyecto = () => {
 
     useEffect(() => {
         refetch();
-        console.log(queryData)
-    }, [queryData])
+    }, [queryData, refetch])
+
+    useEffect(() => {
+        if (queryError) {
+          toast.error("Error encontrando el proyecto")
+        }
+      }, [queryError])
 
     if (queryLoading) return <div className="mx-16 my-8 text-3xl text-gray-800">  Cargando la información ... </div>;
 
@@ -49,6 +54,7 @@ const EditarProyectoLider = ({ proyecto }) => {
             toast.success("Información actualizada correctamente");
         }
     }, [mutationData]);
+
     useEffect(() => {
         if (mutationError) {
             toast.error('Error modificando el proyecto');

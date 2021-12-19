@@ -1,13 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import PrivateRoute from 'components/PrivateRoute'
-import { useQuery, useMutation } from '@apollo/client'
+import { useQuery } from '@apollo/client'
 import { useUser } from 'context/userContext';
 import { GET_PROYECTOS } from 'graphql/proyectos/queries'
 import { toast } from 'react-toastify';
 import { Enum_FaseProyecto } from 'utils/enums';
 import { Link } from 'react-router-dom';
 
+// Index de avances donde se listan los proyectos activos. En estudiante se muestran en los que está inscrito, y en líder los que están activos y están a cargo de él. 
+
 const IndexAvances = () => {
+
+    const { userData } = useUser()
 
     const { data: queryData, error: queryError, loading: queryLoading } = useQuery(GET_PROYECTOS);
 
@@ -19,12 +23,14 @@ const IndexAvances = () => {
             toast.error("Error consultando los proyectos")
         }
     }, [queryError])
+    
+    if (queryLoading) return <div className="mx-16 my-8 text-3xl text-gray-800">  Cargando la información ... </div>;
 
     return (
         <PrivateRoute roleList={['LIDER', 'ESTUDIANTE']}>
             <div>
                 <div className="flex justify-between">
-                    <h1 className="mx-16 my-8 text-3xl text-gray-800">Listado de Avances por proyecto</h1>
+                {userData.rol === "ESTUDIANTE" ? (<h1 className="mx-16 my-8 text-3xl text-gray-800"> Proyectos inscritos y aceptados </h1>) : (<h1 className="mx-16 my-8 text-3xl text-gray-800"> Proyectos liderados </h1>)}
                 </div>
 
                 <table className='tabla'>

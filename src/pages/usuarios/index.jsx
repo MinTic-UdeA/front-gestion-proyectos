@@ -79,9 +79,18 @@ const EstadoUsuario = ({ usuario, refetch, estado, classname }) => {
         }
     }, [mutationData, refetch]);
 
+    useEffect(() => {
+        if (mutationError) {
+            toast.error("Error cambiando el estado del usuario")
+        }
+    }, [mutationError])
+
     const cambiarEstado = () => {
         cambiarEstadoUsuario({ variables: { _id: usuario._id, estado: estado } });
     };
+
+    if (mutationLoading) return <div className="mx-16 my-8 text-3xl text-gray-800"> Cargando la información... </div>;
+
     return (
         <button onClick={() => { cambiarEstado(); }}>
             <i className={classname} />

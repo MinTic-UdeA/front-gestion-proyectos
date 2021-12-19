@@ -5,11 +5,8 @@ import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import { Enum_EstadoProyecto, Enum_FaseProyecto } from 'utils/enums';
 import PrivateRoute from 'components/PrivateRoute';
-import { useUser } from 'context/userContext';
 
 const ProyectosLider = () => {
-
-    const { userData } = useUser();
 
     const { data: queryData, error: queryError, loading: queryLoading, refetch } = useQuery(GET_PROYECTOS);
     
@@ -23,13 +20,15 @@ const ProyectosLider = () => {
         }
     }, [queryError])
 
+    if (queryLoading) return <div className="mx-16 my-8 text-3xl text-gray-800"> Cargando la información... </div>;
+
     return (
         <PrivateRoute roleList={["LIDER"]} >
             <div>
                 <div className="flex justify-between">
                     <h1 className="mx-16 my-8 text-3xl text-gray-800">Listado de Proyectos</h1>
                     <Link to="/proyectoslider/nuevo">
-                        <div className="w-40 my-8 p-1 mx-16 bg-blue-600 text-white text-center text-lg rounded-xl hover:bg-blue-500 shadow-md disabled:opacity-50 disabled:bg-gray-700 cursor-pointer">Nuevo Proyecto</div>
+                        <div className="w-40 my-8 p-1 mx-16 bg-blue-500 text-white text-center text-lg rounded-xl hover:bg-blue-600 shadow-md disabled:opacity-50 disabled:bg-gray-700 cursor-pointer">Nuevo Proyecto</div>
                     </Link>
                 </div>
                 <table className='tabla'>

@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useQuery, useMutation } from '@apollo/client'
 import { toast } from 'react-toastify';
-import { Link } from 'react-router-dom';
-import { Enum_EstadoProyecto, Enum_FaseProyecto } from 'utils/enums';
+import { Enum_FaseProyecto } from 'utils/enums';
 import { useUser } from 'context/userContext';
 import { GET_PROYECTOS } from 'graphql/proyectos/queries';
 import PrivateRoute from 'components/PrivateRoute';
@@ -29,12 +28,20 @@ const ProyectosEstudiante = () => {
 
         crearInscripcion({ variables: { proyecto: p._id, estudiante: userData._id } })
         toast.success("Inscripción realizada con éxito");
-
     };
 
     useEffect(() => {
 
     }, [mutationData]);
+
+    useEffect(() => {
+        if (mutationError) {
+            toast.error("Error creando la inscripción")
+        }
+    }, [mutationError])
+
+    if (mutationLoading) return <div className="mx-16 my-8 text-3xl text-gray-800"> Cargando la información... </div>;
+    if (queryLoading) return <div className="mx-16 my-8 text-3xl text-gray-800"> Cargando la información... </div>;
 
     return (
         <PrivateRoute roleList={["ESTUDIANTE"]} >

@@ -1,9 +1,7 @@
 import React, { useEffect } from 'react'
 import PrivateRoute from 'components/PrivateRoute';
 import { useQuery, useMutation } from '@apollo/client';
-import PrivateComponent from 'components/PrivateComponent';
 import { useUser } from 'context/userContext';
-// import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Input from 'components/Input';
 import ButtonLoading from 'components/ButtonLoading';
@@ -12,24 +10,33 @@ import { EDITAR_USUARIO } from 'graphql/usuarios/mutations';
 import { GET_USUARIO } from 'graphql/usuarios/queries'
 
 const IndexPerfil = () => {
- 
+
   const { userData } = useUser()
-  
+
   const { form, formData, updateFormData } = useFormData(null);
 
   const _id = userData._id
 
   const { data: queryData, error: queryError, loading: queryLoading } = useQuery(GET_USUARIO, { variables: { _id: _id } });
 
-  const [editarUsuario, { data: mutationData, loading: mutationLoading, error: MutationError }] = useMutation(EDITAR_USUARIO);
+  const [editarUsuario, { data: mutationData, loading: mutationLoading, error: mutationError }] = useMutation(EDITAR_USUARIO);
 
   const submitForm = (e) => {
     e.preventDefault();
     editarUsuario({ variables: { _id, ...formData } })
   }
-  
+
   useEffect(() => {
   }, [queryData])
+
+  useEffect(() => {
+    if (mutationError) {
+      toast.error("Error editando el usuario")
+    }
+    if (queryError) {
+      toast.error("Error encontrando el usuario")
+    }
+  }, [mutationError, queryError])
 
   useEffect(() => {
     if (mutationData) {
@@ -37,7 +44,7 @@ const IndexPerfil = () => {
     }
   }, [mutationData])
 
-  if (queryLoading) return <div>Cargando....</div>;
+  if (queryLoading) return <div className="mx-16 my-8 text-3xl text-gray-800"> Cargando la información... </div>;
 
   return (
     <PrivateRoute roleList={["LIDER", "ESTUDIANTE"]}>
