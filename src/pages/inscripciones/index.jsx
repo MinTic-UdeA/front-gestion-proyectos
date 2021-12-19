@@ -9,6 +9,7 @@ import PrivateRoute from 'components/PrivateRoute';
 import { Link } from 'react-router-dom';
 import { Enum_EstadoInscripcion } from 'utils/enums';
 
+
 const IndexInscripciones = () => {
     const { userData } = useUser()
 
@@ -22,6 +23,8 @@ const IndexInscripciones = () => {
             toast.error("Error consultando las inscripciones")
         }
     }, [queryError])
+
+    if (queryLoading) return <div className="mx-16 my-8 text-3xl text-gray-800">  Cargando la información ... </div>;
 
     return (
         <div>

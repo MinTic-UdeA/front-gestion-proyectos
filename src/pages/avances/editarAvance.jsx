@@ -13,7 +13,7 @@ const VerAvances = () => {
 
     console.log(proyectoId)
 
-    const { data: queryData, error: queryError, loading: queryLoading, refetch  } = useQuery(GET_AVANCES, { variables: { proyectoId } });
+    const { data: queryData, error: queryError, refetch  } = useQuery(GET_AVANCES, { variables: { proyectoId } });
 
     useEffect(() => {
         refetch();
@@ -25,8 +25,6 @@ const VerAvances = () => {
             toast.error("Error consultando los avances")
         }
     }, [queryError])
-
-    if (queryLoading) return <div>Loading...</div>;
 
     return (
         <PrivateRoute roleList={['LIDER', 'ESTUDIANTE']}>

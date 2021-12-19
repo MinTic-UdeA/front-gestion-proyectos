@@ -10,6 +10,7 @@ import useFormData from 'hooks/useFormData';
 import { useUser } from 'context/userContext';
 import { CREAR_AVANCE } from 'graphql/avances/mutations';
 import { Dialog } from '@mui/material';
+import PrivateComponent from 'components/PrivateComponent';
 
 
 const VerAvances = () => {
@@ -40,17 +41,16 @@ const VerAvances = () => {
                     <i className='mt-8 ml-8 fas fa-arrow-left text-gray-600 cursor-pointer font-bold text-xl hover:text-gray-900' />
                 </Link>
                 <div className="flex justify-between">
-
                     <h1 className="mx-16 my-8 text-3xl text-gray-800"> Avances del proyecto </h1>
-
-                    <button
-                        onClick={() => setOpenDialog(true)}
-                        className='w-40 my-8 p-1 mx-16 text-white text-center text-lg rounded-xl bg-blue-500 hover:bg-blue-600 shadow-md disabled:opacity-50 disabled:bg-gray-700 cursor-pointer'
-                        type='button'
-                    >
-                        Nuevo Avance
-                    </button>
-
+                    <PrivateComponent roleList={['ESTUDIANTE']}>
+                        <button
+                            onClick={() => setOpenDialog(true)}
+                            className='w-40 my-8 p-1 mx-16 text-white text-center text-lg rounded-xl bg-blue-500 hover:bg-blue-600 shadow-md disabled:opacity-50 disabled:bg-gray-700 cursor-pointer'
+                            type='button'
+                        >
+                            Nuevo Avance
+                        </button>
+                    </PrivateComponent>
                 </div>
                 <table className='tabla'>
                     <thead>
@@ -60,13 +60,13 @@ const VerAvances = () => {
                             <th>Fecha</th>
                             <th>Creado por:</th>
                             <th>Observaciones</th>
-                           {/*  <th>Editar</th> */}
+                            {/*  <th>Editar</th> */}
                         </tr>
                     </thead>
                     <tbody>
                     </tbody>
                     {queryData.Avances.length === 0 ? (
-                        <div className="my-40"> No tienes avances para este proyecto</div>
+                        <div className="my-40"> No hay avances para este proyecto</div>
                     ) : (
                         queryData.Avances.map((avance) => {
                             return (<Avance avance={avance} ></Avance>
@@ -91,7 +91,7 @@ const Avance = ({ avance }) => {
             <td>{avance.fecha}</td>
             <td>{avance.creadoPor.correo}</td>
             <td>{avance.observaciones}</td>
-           {/*  <td>
+            {/*  <td>
             </td> */}
         </tr>
     );

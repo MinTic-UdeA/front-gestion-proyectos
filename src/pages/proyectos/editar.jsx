@@ -21,8 +21,8 @@ const EditarProyecto = () => {
         console.log(queryData)
     }, [queryData])
 
-    if (queryLoading) return <div>Cargando....</div>;
-    
+    if (queryLoading) return <div className="mx-16 my-8 text-3xl text-gray-800">  Cargando la información ... </div>;
+
     return (
         <>
             <PrivateComponent roleList={["LIDER"]}>

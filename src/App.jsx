@@ -96,7 +96,7 @@ function App() {
                 <Route path='/proyectosestudiante/' element={<ProyectosEstudiante />} />
                 <Route path='/avances' element={<IndexAvances />} />
                 <Route exact path='/avances/veravances/:proyectoId' element={<VerAvances />} />
-            
+               
                 <Route path='/inscripciones' element={<IndexInscripciones />} />
               </Route>
               <Route path='/auth' element={<AuthLayout />}>
