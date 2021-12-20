@@ -93,7 +93,13 @@ const Avance = ({ avance }) => {
             <td>{avance.descripcion}</td>
             <td>{avance.fecha}</td>
             <td>{avance.creadoPor.correo}</td>
-            <td>{avance.observaciones}</td>
+            <td >
+            {avance.observaciones != 0 && avance.observaciones.map( obs => { return (
+                        <div>
+                          <span className="fas fa-angle-right mr-2"></span>
+                          <span className="text-black">{obs}</span>
+                        </div> )})}
+            </td>
             {userData.rol === "LIDER" ? (<td className="text-center"><NuevaObservacion avance={avance._id} ></NuevaObservacion></td>) : (<td></td>)}
         </tr>
     );
@@ -151,9 +157,9 @@ const NuevoAvance = ({ proyecto, setOpenDialog }) => {
     )
 }
 
-const NuevaObservacion = ({avance}) => {
+const NuevaObservacion = ({ avance }) => {
 
-    const [crearObservacion, { data: mutationData, error: mutationError, loading: mutationLoading }] = useMutation(CREAR_OBSERVACION, { variables: { _id: avance} })
+    const [crearObservacion, { data: mutationData, error: mutationError, loading: mutationLoading }] = useMutation(CREAR_OBSERVACION, { variables: { _id: avance } })
 
     const [openDialog, setOpenDialog] = useState(false);
     const { form, formData, updateFormData } = useFormData();
@@ -193,7 +199,7 @@ const NuevaObservacion = ({avance}) => {
                             </label>
                         </div>
                     </div>
-                    <ButtonLoading text='Crear Observación' disabled={false} loading={mutationLoading}/>
+                    <ButtonLoading text='Crear Observación' disabled={false} loading={mutationLoading} />
                 </form>
             </Dialog>
 
