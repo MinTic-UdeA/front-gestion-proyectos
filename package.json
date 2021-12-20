@@ -32,6 +32,9 @@
     "test": "craco test",
     "eject": "react-scripts eject"
   },
+  "engines": {
+    "node": ">=0.10.3 <15"
+  },
   "eslintConfig": {
     "extends": [
       "react-app",
