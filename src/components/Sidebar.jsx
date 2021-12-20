@@ -24,7 +24,7 @@ const Logout = () => {
 const SidebarLinks = () => {
   const { userData } = useUser();
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col justify-evenly">
       <ul className='mt-4'>
         <PrivateComponent roleList={["ADMINISTRADOR", "LIDER"]}>
           <SidebarRoute to='/usuarios' title='Usuarios' icon='fas fa-list' />
@@ -57,7 +57,10 @@ const SidebarLinks = () => {
         </PrivateComponent>
         <Logout />
       </ul>
-      <div className="mt-40 p-2 text-1xl text-white self-center">Rol: {userData.rol}</div>
+      <div className="mt-40 p-2 text-1xl text-white self-center">
+        <div>Usuario: {userData.nombre}</div>
+        <div>Rol: {userData.rol}</div>
+      </div>
     </div>
   );
 };
@@ -66,7 +69,7 @@ const Logo = () => {
   return (
     <div className='py-3 w-full flex flex-col items-center justify-center'>
       {/*  <img src='logo.png' alt='Logo' className='h-16' /> */}
-      <span className='mt-5 text-xl text-blue-500 font-bold text-center'>ProjectTracker</span>
+      <span className='mt-5 text-xl text-blue-500 font-bold text-center'>Gesti&oacute;n Proyectos</span>
     </div>
   );
 };
