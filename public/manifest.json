@@ -1,0 +1,7 @@
+{
+    "short_name": "C4DevOps App",
+    "name": "Gestion Proyectos MisionTIC - C4DevOps",
+    "icons": [],
+    "start_url": ".",
+    "display": "standalone"
+  }

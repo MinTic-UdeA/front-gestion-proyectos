@@ -26,7 +26,7 @@ import VerAvances from 'pages/avances/verAvances';
 
 
 // poder agregar funcionalidades como los tokens que vamos a tener que mandar para el backend
-const httpLink = createHttpLink({ uri: "http://localhost:4000/graphql" })
+const httpLink = createHttpLink({ uri: "https://servidor-c4devops.herokuapp.com/graphql" })
 
 // esta en la documentacion de Apollo
 const authLink = setContext((_, { headers }) => {
