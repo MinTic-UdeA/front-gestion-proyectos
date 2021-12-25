@@ -94,7 +94,7 @@ const Avance = ({ avance }) => {
             <td>{avance.fecha}</td>
             <td>{avance.creadoPor.correo}</td>
             <td >
-            {avance.observaciones != 0 && avance.observaciones.map( obs => { return (
+            {avance.observaciones !== 0 && avance.observaciones.map( obs => { return (
                         <div>
                           <span className="fas fa-angle-right mr-2"></span>
                           <span className="text-black">{obs}</span>
